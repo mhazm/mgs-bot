@@ -1,17 +1,24 @@
 {
-    "name": "djs",
+    "name": "mgs-bot",
     "version": "1.0.0",
-    "description": "",
+    "description": "MythicalGuardians Discord Bot",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
         "test": "nodemon index.js"
     },
+    "repository": {
+        "url": "https://github.com/mhazm/mgs-bot"
+    },
+    "engines": {
+        "node": ">=16.6.0"
+    },
     "keywords": [],
-    "author": "",
+    "author": "mhazm",
     "license": "ISC",
     "dependencies": {
         "discord.js": "^13.2.0",
+        "dotenv": "^16.0.0",
         "glob": "^7.1.7",
         "mongoose": "^6.0.2"
     }

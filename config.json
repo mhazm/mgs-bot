@@ -1,5 +1,4 @@
 {
-    "token": "your bot's token",
     "prefix": "!",
-    "mongooseConnectionString": ""
+    "colorEmbed": "#3b7fb3"
 }
