@@ -2,6 +2,7 @@ const { glob } = require("glob");
 const { promisify } = require("util");
 const { Client } = require("discord.js");
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 const globPromise = promisify(glob);
 
@@ -40,19 +41,23 @@ module.exports = async (client) => {
         if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
         arrayOfSlashCommands.push(file);
     });
-    client.on("ready", async () => {
+    // client.on("ready", async () => {
         // Register for a single guild
-        await client.guilds.cache
-            .get("replace this with your guild id")
-            .commands.set(arrayOfSlashCommands);
+        // await client.guilds.cache
+            // .get("815904468574666772")
+            // .commands.set(arrayOfSlashCommands);
 
         // Register for all the guilds the bot is in
         // await client.application.commands.set(arrayOfSlashCommands);
-    });
+    // });
 
     // mongoose
-    const { mongooseConnectionString } = require('../config.json')
-    if (!mongooseConnectionString) return;
+    mongoose.connect(process.env.MONGODB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
 
-    mongoose.connect(mongooseConnectionString).then(() => console.log('Connected to mongodb'));
+    mongoose.connection.on('connected', () => {
+        console.log('[Database] Connected');
+    });
 };
