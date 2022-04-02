@@ -13,29 +13,63 @@ const schema = mongoose.Schema({
     games: {
 		genshin: {
             type: String,
-            default: 0
+            default: "-"
         },
 		steamId: {
             type: String,
-            default: 0
+            default: "-"
         },
         mobileLegends: {
             type: String,
-            default: 0
+            default: "-"
         },
         osu: {
             type: String,
-            default: 0
+            default: "-"
         },
         honkaiImpact: {
-            type: Number,
-            default: 0
+            type: String,
+            default: "-"
         },
         RockstarGames: {
             type: String,
-            default: 0
+            default: "-"
+        },
+        Valorant: {
+            type: String,
+            default: "-"
+        },
+        ApexLegend: {
+            type: String,
+            default: "-"
+        },
+        PointBlank: {
+            type: String,
+            default: "-"
+        },
+        PUBG: {
+            type: String,
+            default: "-"
         },
         lastProfileUpdate: Date,
+	},
+    socialMedia: {
+		facebook: {
+            type: String,
+            default: "-"
+        },
+		twitter: {
+            type: String,
+            default: "-"
+        },
+        instagram: {
+            type: String,
+            default: "-"
+        },
+        tiktok: {
+            type: String,
+            default: "-"
+        }
 	},
     rankcard: {
 		background: {
@@ -90,7 +124,7 @@ const schema = mongoose.Schema({
     },
     waifu: {
         type: String,
-        default: `Mama Altina`
+        default: `Dapin-kun`
     },
     _time: {
         type: Number,

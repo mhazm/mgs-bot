@@ -4,25 +4,7 @@ const Guild = require("../models/Guild.js");
 const { MessageEmbed } = require("discord.js");
 
 client.on("messageCreate", async (message) => {
-    if (
-        message.author.bot ||
-        !message.guild ||
-        !message.content.toLowerCase().startsWith(client.config.prefix)
-    )
-        return;
-
-    const [cmd, ...args] = message.content
-        .slice(client.config.prefix.length)
-        .trim()
-        .split(/ +/g);
-
-    const command = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
-
-    if (!command) return;
-    await command.run(client, message, args);
-});
-
-client.on("messageCreate", async (message) => {
+    const { author } = message;
     if (
         message.author.bot ||
         !message.guild ||
@@ -50,7 +32,7 @@ client.on("messageCreate", async (message) => {
                 guildID: message.guild.id,
                 userID: message.author.id,
             });
-		return;
+		    return;
 	}
 
     const [cmd, ...args] = message.content
