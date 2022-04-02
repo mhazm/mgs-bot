@@ -6,7 +6,7 @@ const activities = [
 
 client.on('ready', () => {
 	let currentIndex = 0;
-	console.log(`${client.user.username} ✅Connected`)
+	console.log(`${client.user.username} ✅`)
     setInterval(() => {
         const activity = activities[currentIndex];
 		client.user.setActivity(activity);
