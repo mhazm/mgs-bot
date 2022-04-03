@@ -134,18 +134,6 @@ const schema = mongoose.Schema({
         type: String,
         default: `Dapin-kun`
     },
-    _time: {
-        type: Number,
-        default: 0
-    },
-    afk: {
-        type: Boolean,
-        default: false
-    },
-    status: {
-        type: String,
-        default: "Not Afk"
-    },
     banner: {
         type: String,
         default: ''

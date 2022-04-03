@@ -111,10 +111,6 @@ module.exports = {
         .addField("💤 Mute", `${data.muted || 0}/${process.env.WARN}`, inline)
         .addField("📖 Quest Done", `${data.questdone || 0} Quest`, inline)
         .setImage(`${data.banner}`)
-        .addField(
-          "📃 Custom Status",
-          `${data.status || guildData.prefix + `setstatus [text]`}`
-        );
       const embedmessage = await message.channel.send({
         embeds: [profile],
         components: [pbutton],
