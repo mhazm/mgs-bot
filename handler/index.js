@@ -64,6 +64,9 @@ module.exports = async (client) => {
 
     const Util = require("./util");
     const JadwalSholat = require("./waktusholat");
+    const Westmanga = require("./westmanga");
+
     client.util = new Util;
     client.jadwalsholat = new JadwalSholat;
+    client.westmanga = new Westmanga;
 };

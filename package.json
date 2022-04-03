@@ -1,6 +1,6 @@
 {
     "name": "mgs-bot",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "MythicalGuardians Discord Bot",
     "main": "index.js",
     "scripts": {
@@ -23,6 +23,7 @@
         "glob": "^7.1.7",
         "moment": "^2.29.1",
         "mongoose": "^6.0.2",
+        "nekos.life": "^2.0.9",
         "node-gyp": "^9.0.0",
         "quick.db": "^7.1.3"
     }
