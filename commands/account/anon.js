@@ -37,12 +37,15 @@ module.exports = {
     const collector = channel.createMessageCollector({
         filter,
         max: 5,
-        time: 1000 * 20,
+        time: 5000 * 60,
     });
 
     collector.on("collect", m => {
         if (collectCounter < questions.length) {
             channel.send(questions[collectCounter++]);
+        } 
+        if (m.content.toLowerCase() === 'quit' || 'batal' || 'cancel') {
+            collector.stop('batal');
         }
         else {
             channel.send("Post akan disubmit!");
@@ -56,6 +59,12 @@ module.exports = {
             collector.stop('terisi');
         };
     });
+
+    collector.on('end', (collected, reason) => {
+        if (reason === 'batal') {
+            channel.send(`Oke.. batal`);
+        }
+    })
 
     } catch (error) {
         return console.log(error);
