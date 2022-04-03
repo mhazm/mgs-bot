@@ -36,23 +36,38 @@ class Util {
             }
         };
 
-        this.parseDur = function parseDur(ms) {
-            let seconds = ms / 1000;
-            let days = parseInt(seconds / 86400);
-            seconds = seconds % 86400;
-            let hours = parseInt(seconds / 3600);
-            seconds = seconds % 3600;
-            let minutes = parseInt(seconds / 60);
-            seconds = parseInt(seconds % 60);
-      
-            if (days) {
-              return `${days} hari, ${hours} jam, ${minutes} menit`;
-            } else if (hours) {
-              return `${hours} jam, ${minutes} menit, ${seconds} detik`;
-            } else if (minutes) {
-              return `${minutes} menit, ${seconds} detik`;
+        this.truncate = function truncate(str, num) {
+          var ending = "..."
+          if (str.length > num) {
+            if (num > 2044 ) {
+            str = str.slice(0,num-3);
+            return str + ending;
+            } else {
+              str = str.slice(0,num);
+              return str + ending;
             }
-            return `${seconds} detik`;
+          } else {
+            return str;
+          }
+        };
+
+        this.parseDur = function parseDur(ms) {
+          let seconds = ms / 1000;
+          let days = parseInt(seconds / 86400);
+          seconds = seconds % 86400;
+          let hours = parseInt(seconds / 3600);
+          seconds = seconds % 3600;
+          let minutes = parseInt(seconds / 60);
+          seconds = parseInt(seconds % 60);
+    
+          if (days) {
+            return `${days} hari, ${hours} jam, ${minutes} menit`;
+          } else if (hours) {
+            return `${hours} jam, ${minutes} menit, ${seconds} detik`;
+          } else if (minutes) {
+            return `${minutes} menit, ${seconds} detik`;
+          }
+          return `${seconds} detik`;
         };
 
         this.durasi = function durasi(ms) {
