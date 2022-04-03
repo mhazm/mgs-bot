@@ -1,5 +1,6 @@
 const { Message } = require('discord.js');
 const db = require("quick.db");
+const Guild = require("../../models/Guild");
 
 module.exports = {
     name: 'afk',
@@ -10,6 +11,21 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
+            // Check typing on AFK Channel
+            let data = await Guild.findOne({
+                guildID: message.guild.id,
+                userID: message.author.id,
+            });
+
+            let afkchannel = data.channel.afk;
+            if (!afkchannel) return;
+
+            let thisChannel = message.channel.id;
+            if (thisChannel !== afkchannel) {
+                return message.reply(`Kamu dapat menggunakan command ini di <#${afkchannel}>`)
+            };
+
+            // LET AFK
             const status = new db.table('AFKs');
             let afk = await status.fetch(`userid_${message.author.id}_guild_${message.guild.id}`);
 
