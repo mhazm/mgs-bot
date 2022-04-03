@@ -83,7 +83,7 @@ module.exports = {
                 let channel =  message.mentions.channels.first();
                 if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
                 let embed = new Discord.MessageEmbed()
-                    .setDescription(`Berhasil setting modlog channel di ${channel}`)
+                    .setDescription(`Berhasil setting afk channel di ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 message.channel.send({ embeds: [embed] });
@@ -100,7 +100,7 @@ module.exports = {
                 let channel =  message.mentions.channels.first();
                 if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
                 let embed = new Discord.MessageEmbed()
-                    .setDescription(`Berhasil setting modlog channel di ${channel}`)
+                    .setDescription(`Berhasil setting story channel di ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 message.channel.send({ embeds: [embed] });
@@ -117,7 +117,7 @@ module.exports = {
                 let channel =  message.mentions.channels.first();
                 if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
                 let embed = new Discord.MessageEmbed()
-                    .setDescription(`Berhasil setting modlog channel di ${channel}`)
+                    .setDescription(`Berhasil setting income channel di ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 message.channel.send({ embeds: [embed] });
@@ -134,7 +134,7 @@ module.exports = {
                 let channel =  message.mentions.channels.first();
                 if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
                 let embed = new Discord.MessageEmbed()
-                    .setDescription(`Berhasil setting modlog channel di ${channel}`)
+                    .setDescription(`Berhasil setting chatmoney channel di ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 message.channel.send({ embeds: [embed] });
@@ -151,11 +151,28 @@ module.exports = {
                 let channel =  message.mentions.channels.first();
                 if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
                 let embed = new Discord.MessageEmbed()
-                    .setDescription(`Berhasil setting modlog channel di ${channel}`)
+                    .setDescription(`Berhasil setting levelup channel di ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 message.channel.send({ embeds: [embed] });
                 data.channel.levelup = channel.id; data.save();
+    
+                // Send Report to ModLog
+                let report = new Discord.MessageEmbed()
+                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setTimestamp(new Date())
+                    .setColor(client.config.berhasil)
+                modlog.send({ embeds: [report] });
+            } else
+            if (args[0].toLowerCase() === 'isolasi') {
+                let channel =  message.mentions.channels.first();
+                if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
+                let embed = new Discord.MessageEmbed()
+                    .setDescription(`Berhasil setting isolasi channel di ${channel}`)
+                    .setTimestamp(new Date())
+                    .setColor(client.config.berhasil)
+                message.channel.send({ embeds: [embed] });
+                data.channel.isolasi = channel.id; data.save();
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
