@@ -1,6 +1,6 @@
 {
     "name": "mgs-bot",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "MythicalGuardians Discord Bot",
     "main": "index.js",
     "scripts": {
