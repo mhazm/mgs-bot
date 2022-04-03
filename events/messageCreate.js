@@ -18,7 +18,10 @@ client.on("messageCreate", async (message) => {
         });
         let guild = await Guild.findOne({ guildID: message.guild.id });
         if (!guild) {
-            const newGuild = new Guild({ guildID: message.guild.id });
+            const newGuild = new Guild({ 
+                guildID: message.guild.id,
+                guildName: message.guild.name,
+            });
             newGuild.save();
             return;
         }

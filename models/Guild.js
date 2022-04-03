@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
     guildID: String,
+    guildName: String,
     prefix: {
         type: String,
         default: process.env.PREFIX
@@ -66,6 +67,10 @@ const schema = mongoose.Schema({
             default: ''
         },
         afk: {
+            type: String,
+            default: ''
+        },
+        isolasi: {
             type: String,
             default: ''
         },
