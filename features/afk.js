@@ -30,6 +30,11 @@ module.exports = async (client, message) => {
           );
         message.channel
           .send({ embeds: [estatus] })
+          .then(msg => {
+            message.delete()
+            setTimeout(() => msg.delete(), 3000)
+          });
+        
       }
     }
 
