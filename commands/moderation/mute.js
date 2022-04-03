@@ -45,16 +45,6 @@ module.exports = {
                 userID: target.user.id,
             });
 
-            if(!datauser.muted) {
-                await User.findOneAndUpdate({
-                    userID: target.user.id,
-                    guildID: message.guild.id,
-                },
-                {
-                muted: 1
-                })
-            }
-
             // Check Muted Role
             const mutedRole = message.guild.roles.cache.get(data.role.mutedRole);
             if (!mutedRole) return message.reply(`Muted role tidak tersedia!`);
@@ -70,10 +60,17 @@ module.exports = {
             const modlog = client.channels.cache.get(data.channel.modlog);
             if (!modlog) return message.reply('Please setup this bot first!');
 
+            let boosterRole = message.guild.roles.cache.get(data.role.kosuke);
+            if (target.roles.cache.has(boosterRole.id)) {
+                return message.reply('Dia member booster, discord gabisa lepas role booster. Jadi nggabisa men..');
+            }
+
             // Save data on Quickdb
             let dataquick = new db.table('Mutes')
             await dataquick.set(target.user.id, target._roles)
             console.log('Saving to quick.db completed');
+
+            dataquick.has(target._roles, repla)
 
             // Takes member Roles //
             for (let i = 0; i < target._roles.length; i++) {
