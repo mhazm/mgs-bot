@@ -31,7 +31,7 @@ module.exports = {
                 .setTimestamp(new Date())
                 .setColor(client.config.berhasil)
             message.channel.send({ embeds: [embed] });
-            data.welcomeChannel = channel.id; data.save();
+            data.channel.welcome = channel.id; data.save();
 
             // Send Report to ModLog
             let report = new Discord.MessageEmbed()
@@ -48,7 +48,7 @@ module.exports = {
                 .setTimestamp(new Date())
                 .setColor(client.config.berhasil)
             message.channel.send({ embeds: [embed] });
-            data.byeChannel = channel.id; data.save();
+            data.channel.bye = channel.id; data.save();
 
             // Send Report to ModLog
             let report = new Discord.MessageEmbed()
@@ -65,7 +65,7 @@ module.exports = {
                 .setTimestamp(new Date())
                 .setColor(client.config.berhasil)
             message.channel.send({ embeds: [embed] });
-            data.modlogChannel = channel.id; data.save();
+            data.channel.modlog = channel.id; data.save();
 
             // Send Report to ModLog
             let report = new Discord.MessageEmbed()

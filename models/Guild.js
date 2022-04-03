@@ -36,69 +36,39 @@ const schema = mongoose.Schema({
             default: "25"
         },
 	},
-    welcomeChannel: {
-        type: String,
-        default: ''
-    },
-    suggestionChannel: {
-        type: String,
-        default: ''
-    },
-    levelUpChannel: {
-        type: String,
-        default: ''
-    },
-    modlogChannel: {
-        type: String,
-        default: ''
-    },
-    moneylogChannel: {
-        type: String,
-        default: ''
-    },
-    moneyincomelogChannel: {
-        type: String,
-        default: ''
-    },
-    byeChannel: {
-        type: String,
-        default: ''
-    },
-    chatmoneyChannel: {
-        type: String,
-        default: ''
-    },
-    musicChannel: {
-        type: String,
-        default: ''
-    },
-    storyChannel: {
-        type: String,
-        default: ''
-    },
-    categorychatMoney: {
-        type: String,
-        default: ''
-    },
-    mutedRole: {
-        type: String,
-        default: ''
-    },
-    ruangbk: {
-        type: String,
-        default: ''
-    },
-    ticketCategory: {
-        type: String,
-        default: ''
-    },
-    transcriptTicket:{
-        type: String,
-        default: ''
-    },
-    convertChannel: {
-        type: String,
-        default: ''
+    channel: {
+        welcome: {
+            type: String,
+            default: ''
+        },
+        bye: {
+            type: String,
+            default: ''
+        },
+        modlog: {
+            type: String,
+            default: ''
+        },
+        income: {
+            type: String,
+            default: ''
+        },
+        levelup: {
+            type: String,
+            default: ''
+        },
+        chatmoney: {
+            type: String,
+            default: ''
+        },
+        story: {
+            type: String,
+            default: ''
+        },
+        afk: {
+            type: String,
+            default: ''
+        },
     },
     budget: {
         type: Number,
@@ -106,6 +76,10 @@ const schema = mongoose.Schema({
     },
     role: {
         kosuke: {
+            type: String,
+            default: ''
+        },
+        mutedRole: {
             type: String,
             default: ''
         },
