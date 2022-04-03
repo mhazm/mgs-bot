@@ -11,6 +11,10 @@ const schema = mongoose.Schema({
 		},
 	},
     games: {
+        gamestatus : {
+            type: String,
+            default: "This user not setting game status!"
+        },
 		genshin: {
             type: String,
             default: "-"
@@ -54,6 +58,10 @@ const schema = mongoose.Schema({
         lastProfileUpdate: Date,
 	},
     socialMedia: {
+        sosmedStatus : {
+            type: String,
+            default: "This user not setting game status!"
+        },
 		facebook: {
             type: String,
             default: "-"
