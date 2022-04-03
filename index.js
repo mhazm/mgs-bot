@@ -19,7 +19,12 @@ client.config = require("./config.json");
 client.version = require("./package.json").version;
 require('dotenv').config();
 
+
 // Initializing the project
 require("./handler")(client);
+
+client.on("messageCreate", async(message) => {
+    require('./features/afk')(client, message);
+})
 
 client.login(process.env.TOKEN);

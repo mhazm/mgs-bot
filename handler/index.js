@@ -4,6 +4,7 @@ const { Client } = require("discord.js");
 const mongoose = require("mongoose");
 require('dotenv').config();
 
+
 const globPromise = promisify(glob);
 
 /**
@@ -60,4 +61,7 @@ module.exports = async (client) => {
     mongoose.connection.on('connected', () => {
         console.log('[Database] Connected');
     });
+
+    const Util = require("./util");
+    client.util = new Util;
 };
