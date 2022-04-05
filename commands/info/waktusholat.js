@@ -2,6 +2,7 @@ const { Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'waktusholat',
+    description: 'Menampilkan waktu sholat sesuai daerah',
     aliases: ["ws", "jadwalsholat", "js"],
     /** 
      * @param {Message} message 
