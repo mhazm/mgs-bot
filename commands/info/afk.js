@@ -4,6 +4,7 @@ const Guild = require("../../models/Guild");
 
 module.exports = {
     name: 'afk',
+    description: 'Membuat status afk',
     /** 
      * @param {Client} client 
      * @param {Message} message 

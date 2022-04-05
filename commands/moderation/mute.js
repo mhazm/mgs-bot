@@ -70,8 +70,6 @@ module.exports = {
             await dataquick.set(target.user.id, target._roles)
             console.log('Saving to quick.db completed');
 
-            dataquick.has(target._roles, repla)
-
             // Takes member Roles //
             for (let i = 0; i < target._roles.length; i++) {
                 target.roles.remove(target._roles[i])
