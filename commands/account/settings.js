@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["set"],
     category: "account",
     description: "Mengubah/Mengatur Profile",
-    usage: "[args] [settingan]",
+    usage: "[args]",
     /** 
      * @param {Client} client 
      * @param {Message} message 

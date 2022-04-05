@@ -3,6 +3,7 @@ const { Message, Client } = require("discord.js");
 module.exports = {
     name: "ping",
     aliases: ['ping'],
+    description: 'Ping bot',
     /**
      *
      * @param {Client} client

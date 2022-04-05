@@ -3,6 +3,7 @@ const moment = require('moment');
 
 module.exports = {
     name: 'timenow',
+    description: 'Menampilkan waktu saat ini',
     /** 
      * @param {Client} client 
      * @param {Message} message 

@@ -5,8 +5,6 @@ module.exports = {
     name: 'anon',
     category: 'account',
     description: 'Membuat post sebagai anonymous',
-    usage: '',
-    aliases: [''],
     cooldown: 1000,
     /**
      *
