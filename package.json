@@ -20,6 +20,7 @@
         "axios": "^0.26.1",
         "discord.js": "^13.2.0",
         "dotenv": "^16.0.0",
+        "fs": "^0.0.1-security",
         "glob": "^7.1.7",
         "moment": "^2.29.1",
         "mongoose": "^6.0.2",
