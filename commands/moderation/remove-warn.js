@@ -46,9 +46,9 @@ module.exports = {
                     data.save()
 
                     let embed = new MessageEmbed()
-                        .setTitle(`REMOVE WARN | ${user.user.tag}`)
-                        .setColor("BLUE")
-                        .addField("User", user.user.username, true)
+                        .setTitle(`Remove Warn | ${user.user.username}`)
+                        .setColor(client.config.berhasil)
+                        .addField("Target", user.user.username, true)
                         .addField("Moderator", message.author.username, true)
                         .setTimestamp()
                     modlog.send({ embeds: [embed] });
