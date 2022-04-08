@@ -17,13 +17,19 @@ module.exports = {
             const author = message.guild.members.cache.get(message.author.id);
 
             if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (!user) return message.reply('Member tidak ditemukan!.');
+            if (!user) return message.reply('Member tidak ditemukan!.').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             const reason = args.slice(1).join(" ");
-            if (!reason) return message.reply('Tolong berikan alasannya kenapa member tersebut terkena warn!');
+            if (!reason) return message.reply('Tolong berikan alasannya kenapa member tersebut terkena warn!').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             // Warn DB Schema            
             Warn.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
@@ -65,7 +71,11 @@ module.exports = {
 
             const modlog = client.channels.cache.get(guild.channel.modlog);
             if (!modlog) {
-                return message.reply(`Please setup this bot first with ${guild.prefix}setup or setting modlog channel with ${guild.prefix}setch modlog`)
+                return message.reply(
+                    `Please setup this bot first with ${guild.prefix}setup or setting modlog channel with ${guild.prefix}setch modlog`
+                ).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             }
 
             // Give warn to Profile
@@ -83,7 +93,7 @@ module.exports = {
                 .addField("Alasan", `\`\`\`${reason}\`\`\``)
                 .setColor("RED")
                 .setTimestamp()
-            user.send({ embeds: [embedUser] })
+            user.send({ embeds: [embedUser] });
 
             let embedModlog = new MessageEmbed()
                 .setTitle(`New Warning!`)

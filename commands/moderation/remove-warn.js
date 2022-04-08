@@ -16,10 +16,14 @@ module.exports = {
     run: async(client, message, args) => {
         try {
             if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (!user) return message.reply('Member tidak ditemukan! Mau ngapus apa?');
+            if (!user) return message.reply('Member tidak ditemukan! Mau ngapus apa?').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             // Target User DB
             let target = await User.findOne({
@@ -33,6 +37,13 @@ module.exports = {
             });
 
             const modlog = client.channels.cache.get(data.channel.modlog);
+            if (!modlog) {
+                return message.reply(
+                    `Please setup this bot first or setting modlog channel with ${data.prefix}setch modlog\nSee all command on ${data.prefix}help`
+                    ).then(msg => {
+                        setTimeout(() => msg.delete(), 3000)
+                    });
+            };
 
             if (!target) return bot.nodb(member.user);
             db.findOne({ guildid : message.guild.id, user: user.user.id}, async(err,data) => {

@@ -15,14 +15,18 @@ module.exports = {
     run: async(client, message, args) => {
         try {
             if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             let data = await Guild.findOne({
                 guildID: message.guild.id
             });
 
             const newprefix = args[0];
-            if (!newprefix) return message.reply(`Are you stupid? Please give me new prefix!`);
+            if (!newprefix) return message.reply(`Are you stupid? Please give me new prefix!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             const modlog = client.channels.cache.get(data.channel.modlog);
 
@@ -30,7 +34,9 @@ module.exports = {
                 .setDescription(`Berhasil setting prefix menjadi ${newprefix}`)
                 .setTimestamp(new Date())
                 .setColor(client.config.berhasil)
-            message.channel.send({ embeds: [embed] });
+            message.channel.send({ embeds: [embed] }).then(msg => {
+                setTimeout(() => msg.delete(), 6000)
+            });
             data.prefix = newprefix; data.save();
 
             // Send Report to ModLog

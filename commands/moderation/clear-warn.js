@@ -16,10 +16,14 @@ module.exports = {
     run: async(client, message, args) => {
         try {
             if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (!user) return message.reply('Member tidak ditemukan! Mau ngapus apa?');
+            if (!user) return message.reply('Member tidak ditemukan! Mau ngapus apa?').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             // Target User DB
             let target = await User.findOne({
