@@ -14,7 +14,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-            if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
+            if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]))
             return message.reply(`Siapa lu woy!!`);
 
             let data = await Guild.findOne({

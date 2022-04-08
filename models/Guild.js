@@ -88,6 +88,22 @@ const schema = mongoose.Schema({
             type: String,
             default: ''
         },
+        warn1: {
+            type: String,
+            default: ''
+        },
+        warn2: {
+            type: String,
+            default: ''
+        },
+        warn3: {
+            type: String,
+            default: ''
+        },
+        warn4: {
+            type: String,
+            default: ''
+        },
     },
     active: {
 		welcome: {
