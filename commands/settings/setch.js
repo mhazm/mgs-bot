@@ -9,7 +9,7 @@ module.exports = {
     category: "settings",
     run: async(client, message, args) => {
         try {          
-            if (!message.member.permissions.has([Discord.Permissions.FLAGS.BAN_MEMBERS]))
+            if (!message.member.permissions.has([Discord.Permissions.FLAGS.ADMINISTRATOR]))
             return message.reply(`Siapa lu woy!!`);
 
             let data = await Guild.findOne({

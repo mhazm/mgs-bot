@@ -51,6 +51,25 @@ class Util {
           }
         };
 
+        this.chunk = function chunk(array, chunkSize) {
+          let temp = [];
+          for (let i = 0; i < array.length; i += chunkSize) {
+            temp.push(array.slice(i, i + chunkSize));
+          }
+          return temp;
+        };
+    
+        this.chunkString = function chunkString(str, size) {
+          const numChunks = Math.ceil(str.length / size)
+          const chunks = [numChunks]
+    
+          for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+            chunks[i] = str.substr(o, size)
+          }
+    
+          return chunks
+        };
+
         this.parseDur = function parseDur(ms) {
           let seconds = ms / 1000;
           let days = parseInt(seconds / 86400);
