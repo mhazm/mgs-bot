@@ -23,7 +23,9 @@ module.exports = {
 
             let thisChannel = message.channel.id;
             if (thisChannel !== afkchannel) {
-                return message.reply(`Kamu dapat menggunakan command ini di <#${afkchannel}>`)
+                return message.reply(`Kamu dapat menggunakan command ini di <#${afkchannel}>`).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                  });
             };
 
             // LET AFK
@@ -46,7 +48,9 @@ module.exports = {
             };
 
         } catch (error) {
-            return message.channel.send({ content: `Something went wrong: ${error.message}` });
+            return message.channel.send({ content: `Something went wrong: ${error.message}` }).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
             // Restart the bot
         };
     }

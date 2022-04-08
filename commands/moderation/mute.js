@@ -20,17 +20,27 @@ module.exports = {
             let guildname = message.guild.name;
             
             if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (!target) return message.reply('Member tidak ditemukan!.');
+            if (!target) return message.reply('Member tidak ditemukan!.').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             if (target.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
-                return message.reply('Kamu nggabisa bisukan moderator!');
+                return message.reply('Kamu nggabisa bisukan moderator!').then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                  });
             if (target.user.id === author)
-                return message.reply('Masokis??! Ba-baka!');
+                return message.reply('Masokis??! Ba-baka!').then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                  });
             if (message.member.roles.highest.position <= target.roles.highest.position)
-                return message.reply('Tidak sopan untuk mute seseorang yang lebih tinggi daripada kamu..');
+                return message.reply('Tidak sopan untuk mute seseorang yang lebih tinggi daripada kamu..').then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                  });
             
             let reason = args.slice(1).join(` `);
             if (!reason) reason = "Tidak ada alasan";
@@ -47,22 +57,36 @@ module.exports = {
 
             // Check Muted Role
             const mutedRole = message.guild.roles.cache.get(data.role.mutedRole);
-            if (!mutedRole) return message.reply(`Muted role tidak tersedia!`);
+            if (!mutedRole) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             if (target.roles.cache.has(mutedRole.id))
-            return message.reply(`Anda terlalu kejam pak, orang ini udah gabisa ngomong.`);
+            return message.reply(`Anda terlalu kejam pak, orang ini udah gabisa ngomong.`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             // Check Puskesmas
             const isolasi = client.channels.cache.get(data.channel.isolasi);
-            if (!isolasi) return message.reply('Ruang isolasi tidak tersedia.');
+            if (!isolasi) return message.reply('Ruang isolasi tidak tersedia.').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             // Check modlog
             const modlog = client.channels.cache.get(data.channel.modlog);
-            if (!modlog) return message.reply('Please setup this bot first!');
+            if (!modlog) {
+                return message.reply(
+                    `Please setup this bot first or setting modlog channel with ${data.prefix}setch modlog\nSee all command on ${data.prefix}help`
+                    ).then(msg => {
+                        setTimeout(() => msg.delete(), 3000)
+                    });
+            };
 
             let boosterRole = message.guild.roles.cache.get(data.role.kosuke);
             if (target.roles.cache.has(boosterRole.id)) {
-                return message.reply('Dia member booster, discord gabisa lepas role booster. Jadi nggabisa men..');
+                return message.reply('Dia member booster, discord gabisa lepas role booster. Jadi nggabisa men..').then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                  });
             }
 
             // Save data on Quickdb

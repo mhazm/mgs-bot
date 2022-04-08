@@ -13,10 +13,14 @@ module.exports = {
     run: async(client, message, args) => {
         try {
             if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (!target) return message.reply('Please mention member first! Ba-baka!');
+            if (!target) return message.reply('Please mention member first! Ba-baka!').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
 
             let user = await User.findOne({
                 guildID: message.guild.id,
@@ -33,7 +37,9 @@ module.exports = {
                     guildID: message.guild.id,
                     userID: target.user.id,
                 })
-                return message.channel.send(`Profile berhasil dibuat untuk ${target.user.username}`);
+                return message.channel.send(`Profile berhasil dibuat untuk ${target.user.username}`).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                  });
             }
         } catch(error) {
             return console.log(error);

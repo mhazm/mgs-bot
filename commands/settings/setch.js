@@ -10,7 +10,9 @@ module.exports = {
     run: async(client, message, args) => {
         try {          
             if (!message.member.permissions.has([Discord.Permissions.FLAGS.ADMINISTRATOR]))
-            return message.reply(`Siapa lu woy!!`);
+            return message.reply(`Siapa lu woy!!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             let data = await Guild.findOne({
                 guildID: message.guild.id
@@ -25,7 +27,9 @@ module.exports = {
                     .setDescription('Kamu harus menggunakan arguments untuk mensetting channel.\nContoh: !setch <args> <channel>\n\nList Argument bisa dilihat dibawah ini')
                     .addField('List Agruments', '1. welcome\n2. modlog')
                     .setColor(client.config.warning)
-                return message.channel.send({ embeds: [err] });
+                return message.channel.send({ embeds: [err] }).then(msg => {
+                    setTimeout(() => msg.delete(), 15000)
+                });
             }
     
             if (args[0].toLowerCase() === 'welcome') {

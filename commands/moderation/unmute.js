@@ -17,7 +17,9 @@ module.exports = {
         try {
             let author = message.guild.members.cache.get(message.author.id);
             if (!author.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
-                return message.reply(`Kamu nggapunya hak untuk akses ini!`);
+                return message.reply(`Kamu nggapunya hak untuk akses ini!`).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             
             const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
@@ -28,21 +30,33 @@ module.exports = {
             if (!data) return;
 
             const mutedRole = message.guild.roles.cache.get(data.role.mutedRole);
-            if (!mutedRole) return message.reply(`Muted role tidak tersedia!`);
+            if (!mutedRole) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             // Check modlog
             const modlog = client.channels.cache.get(data.channel.modlog);
-            if (!modlog) return message.reply('Please setup this bot first!');
+            if (!modlog) return message.reply('Please setup this bot first!').then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             // Check target //
             if (!target) 
-                return message.reply("Member tidak ditemukan.");
+                return message.reply("Member tidak ditemukan.").then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             if (target.permissions.has([Permissions.FLAGS.BAN_MEMBERS])) 
-                return message.reply("I do not have permission to muted Administrator");
+                return message.reply("I do not have permission to muted Administrator").then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             if (target.user.id == author) 
-                return message.reply("You idiot? why you unmute your self? Ba-baka!");
+                return message.reply("You idiot? why you unmute your self? Ba-baka!").then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             if (!target.roles.cache.has(mutedRole.id))
-                return message.reply('This user is not muted!');
+                return message.reply('This user is not muted!').then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             
             // Find data //
             let dataquick = new db.table('Mutes')
@@ -59,7 +73,9 @@ module.exports = {
             // Give mutedroles //
             await target.roles.remove(mutedRole).then(() => {
                 message.delete()
-                message.channel.send(`**${target.user.tag}** telah bebas dari mute`).then(m => m.delete({ timeout : 5000 }));
+                message.channel.send(`**${target.user.tag}** telah bebas dari mute`).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
             })
 
             // Delete data from quick.db //
