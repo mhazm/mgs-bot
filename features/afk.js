@@ -40,7 +40,9 @@ module.exports = async (client, message) => {
     if (authorstatus) {
       message
         .reply(`Selamat datang kembali!`)
-      await afk.delete(`userid_${message.author.id}_guild_${message.guild.id}`);
+      await afk.delete(`userid_${message.author.id}_guild_${message.guild.id}`).then(msg => {
+        setTimeout(() => msg.delete(), 3000)
+      });
     }
   } catch (err) {
     console.log(err.message);
