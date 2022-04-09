@@ -71,9 +71,7 @@ module.exports = {
             } else {
                 let formatDateEx = moment.utc(roleDb.expired).format("Do MMMM YYYY");
                 return message.reply(`Member sudah punya temp role tersebut dan akan berakhir pada ${formatDateEx}`)
-            };
-
-            
+            };          
 
         } catch(err) {
             return console.log(err);

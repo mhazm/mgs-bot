@@ -8,17 +8,9 @@ client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
     if (!message.guild) return;
 
-    let date = new Date();
-
     let data = await Role.findOne({ userID: message.author.id, guildID: message.guild.id, expired: {$lt: new Date()} });
 
     if (!data) return;
-
-    console.log(data);
-    console.log(date.toISOString());
-    console.log(data.roleID);
-    console.log(data.userID);
-    console.log(data.guildID);
     
     console.log(`User Found!`);
     const role = message.guild.roles.cache.get(data.roleID);
