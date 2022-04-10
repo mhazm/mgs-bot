@@ -92,6 +92,10 @@ const schema = mongoose.Schema({
             type: String,
             default: ''
         },
+        upCrRole: {
+            type: String,
+            default: ''
+        },
         mutedRole: {
             type: String,
             default: ''
