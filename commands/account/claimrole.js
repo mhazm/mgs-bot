@@ -33,6 +33,15 @@ module.exports = {
             const author = message.guild.members.cache.get(message.author.id);
             const rolevip = message.guild.roles.cache.find(r => r.id === guildData.role.vipRole);
 
+            const roleUpPosition = message.guild.roles.cache.find(r => r.id === guildData.role.upCrRole);
+            if (!roleUpPosition) {
+                return message.reply(
+                    `Role up Position not found! Please setting role position with channel with ${guildData.prefix}setrole pos\nSee all command on ${guildData.prefix}help`
+                    ).then(msg => {
+                        setTimeout(() => msg.delete(), 3000)
+                    });
+            }
+            
             const rolename = args.join(' ').toString();
             if (!rolename) {
                 return message.reply('Kamu harus memasukan nama role yang ingin kamu buat!').then(msg => {
@@ -64,7 +73,7 @@ module.exports = {
                     })
                     .then(role => {
                         const roleCreated = message.guild.roles.cache.get(role.id);
-                        roleCreated.setPosition(rolevip.position + 1);
+                        roleCreated.setPosition(roleUpPosition.position + 1);
                         author.roles.add(role.id);
 
                         //Saving data to DB
