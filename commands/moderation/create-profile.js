@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed, Permissions } = require('discord.js');
+const { Client, Message, Permissions } = require('discord.js');
 const User = require('../../models/User.js');
 
 module.exports = {
