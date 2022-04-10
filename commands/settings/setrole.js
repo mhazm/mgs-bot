@@ -170,6 +170,23 @@ module.exports = {
                     .setTimestamp()
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
+
+            } else if (args[0].toLowerCase() === 'pos') {
+                let role =  message.mentions.roles.first() || message.guild.roles.cache.find(r => r.id === args[1]);
+                if(!role) return message.channel.send("Tolong di tag dulu rolenya!");
+                let embed = new MessageEmbed()
+                    .setDescription(`Berhasil setting role ${args[0]} menjadi <@&${role.id}>`)
+                    .setTimestamp()
+                    .setColor(client.config.berhasil)
+                message.channel.send({ embeds: [embed] });
+                data.role.upCrRole = role.id; data.save();
+    
+                // Send Report to ModLog
+                let report = new MessageEmbed()
+                    .setDescription(`User **${message.author.username}** mengubah ${args[0]} role menjadi <@&${role.id}>`)
+                    .setTimestamp()
+                    .setColor(client.config.berhasil)
+                modlog.send({ embeds: [report] });
             }
 
         } catch (error) {
