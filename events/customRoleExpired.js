@@ -5,29 +5,29 @@ const { MessageEmbed } = require('discord.js');
 const Guild = require('../models/Guild');
 moment.locale('id');
 
-client.on('messageCreate', async (message) => {
+client.on('guildMemberUpdate', async (member) => {
 
-    if (message.author.bot) return;
-    if (!message.guild) return;
+    if (member.bot) return;
+    if (!member.guild) return;
 
-    let data = await CustomRole.findOne({ userID: message.author.id, guildID: message.guild.id, });
+    let data = await CustomRole.findOne({ userID: member.id, guildID: member.guild.id, });
     if (!data) return;
 
     let guildData = await Guild.findOne({
-        guildID: message.guild.id,
+        guildID: member.guild.id,
     });
     if (!guildData) return;
 
-    const role = message.guild.roles.cache.get(data.roleID);
+    const role = member.guild.roles.cache.get(data.roleID);
         if (!role) {
             data.delete()
             return console.log(`[Error Found!] Role not exist again! return Deleted Data`);
         } 
 
-    const vip = message.guild.roles.cache.get(guildData.role.vipRole);
+    const vip = member.guild.roles.cache.get(guildData.role.vipRole);
         if (!vip) return console.log(`[Error Found] VIP Role not exist!`);
 
-    const target = message.guild.members.cache.get(data.userID);
+    const target = member.guild.members.cache.get(data.userID);
         if (!target) {
             role.delete({
                 reason: 'Member not Found!',
@@ -36,8 +36,8 @@ client.on('messageCreate', async (message) => {
         return console.log(`[Error Found!] Member not exist again! return Deleted Data`)
         }
 
-    const guildname = message.member.guild.name;
-    const guildicon = message.guild.iconURL();
+    const guildname = member.guild.name;
+    const guildicon = member.guild.iconURL();
 
     let embedNotif = new MessageEmbed()
         .setTitle('❌ Role Deleted')
