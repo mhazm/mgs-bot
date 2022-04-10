@@ -80,11 +80,23 @@ const schema = mongoose.Schema({
         default: '1'
     },
     role: {
+        adminRole: {
+            type: String,
+            default: ''
+        },
+        modRole: {
+            type: String,
+            default: ''
+        },
         kosuke: {
             type: String,
             default: ''
         },
         mutedRole: {
+            type: String,
+            default: ''
+        },
+        vipRole: {
             type: String,
             default: ''
         },
