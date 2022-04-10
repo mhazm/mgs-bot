@@ -1,7 +1,8 @@
 const client = require('../index')
 const Role = require('../models/Role.js');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const { MessageEmbed } = require('discord.js');
+moment.locale('id');
 
 client.on('messageCreate', async (message) => {
 
@@ -26,7 +27,7 @@ client.on('messageCreate', async (message) => {
         .setTitle('❌ Role Expired')
         .setColor("RANDOM")
         .setThumbnail(guildicon)
-        .setDescription('Temporary Role kamu telah expired hari ini')
+        .setDescription(`Temporary Role kamu telah expired hari ini\n${moment.tz(data.expired, 'Asia/Jakarta').format('LLLL')}`)
         .addField('Role Name', role.name)
         .addField('Guild Name', guildname)
         .setTimestamp()
