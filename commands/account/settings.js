@@ -1,4 +1,4 @@
-const { Message, MessageEmbed, Channel, Collector } = require('discord.js');
+const { Message, MessageEmbed } = require('discord.js');
 const User = require('../../models/User.js');
 
 module.exports = {
@@ -74,7 +74,7 @@ module.exports = {
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                     message.channel.send({ embeds: [embed] });
-                    data.waifu = finalanswer; data.save();
+                    data.bio = finalanswer; data.save();
                 });
                 
                 answer.on('end', m => {
