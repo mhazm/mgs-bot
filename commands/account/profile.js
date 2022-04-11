@@ -50,17 +50,15 @@ module.exports = {
     exprequired = Math.round(level * exp);
 
     //Profile Button
-    const pbutton = new Discord.MessageActionRow().addComponents(
-      new Discord.MessageButton()
-        .setLabel("Game Profile")
-        .setStyle("SUCCESS")
-        .setCustomId("game"),
+    const button1 = new Discord.MessageButton()
+    .setCustomId('previousbtn')
+    .setLabel('Previous')
+    .setStyle('DANGER');
 
-      new Discord.MessageButton()
-        .setLabel("Social Media")
-        .setStyle("SECONDARY")
-        .setCustomId("sosmed")
-    );
+    const button2 = new Discord.MessageButton()
+    .setCustomId('nextbtn')
+    .setLabel('Next')
+    .setStyle('SUCCESS');
 
     // Game Profile
     const gameProfile = new Discord.MessageEmbed()
@@ -108,40 +106,70 @@ module.exports = {
         .addField("🏃‍♂️ XP", `${data.xp || 0}/${exprequired}`, inline)
         .addField("📧 Messages", `${data.messages || 0}`, inline)
         .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
-        .addField("💤 Mute", `${data.muted || 0}/${process.env.WARN}`, inline)
+        .addField("💤 Mute", `${data.muted || 0}x`, inline)
         .addField("📖 Quest Done", `${data.questdone || 0} Quest`, inline)
         .setImage(`${data.banner}`)
-      const embedmessage = await message.channel.send({
-        embeds: [profile],
-        components: [pbutton],
-      });
+    
+      let page = 0;
+    
+        pages = [
+          profile,
+          gameProfile,
+          socialMedia,
+      ];
+        
+      buttonList = [
+            button1,
+            button2,
+      ];
 
-      // Button Response
-      const filter = (interaction) => {
-        if (interaction.user.id === message.author.id) return true;
-        return interaction.reply({ content: "You cant use this button" });
-      };
+  const row = new Discord.MessageActionRow().addComponents(buttonList);
+  const curPage = await message.channel.send({
+    embeds: [pages[page].setFooter(`Page ${page + 1} / ${pages.length}`)],
+    components: [row],
+  });
 
-      const collector = message.channel.createMessageComponentCollector({
-        filter,
-        max: 1,
-      })
+  const filter = (i) =>
+    i.customId === buttonList[0].customId ||
+    i.customId === buttonList[1].customId;
 
-      collector.on("end", (ButtonInteraction) => {
-        const id = ButtonInteraction.first().customId;
+  const collector = await curPage.createMessageComponentCollector({
+    filter,
+    time: 120_000,
+  });
 
-		embedmessage.delete();
+  collector.on("collect", async (i) => {
+    switch (i.customId) {
+      case buttonList[0].customId:
+        page = page > 0 ? --page : pages.length - 1;
+        break;
+      case buttonList[1].customId:
+        page = page + 1 < pages.length ? ++page : 0;
+        break;
+      default:
+        break;
+    }
+    await i.deferUpdate();
+    await i.editReply({
+      embeds: [pages[page].setFooter(`Page ${page + 1} / ${pages.length}`)],
+      components: [row],
+    });
+    collector.resetTimer();
+  });
 
-        if (id === "game") {
-          return message.channel.send({
-            embeds: [gameProfile],
-          });
-        }
-        if (id === "sosmed") {
-          return message.channel.send({
-            embeds: [socialMedia],
-          });
-        }
+  collector.on("end", () => {
+    if (!curPage.deleted) {
+      const disabledRow = new Discord.MessageActionRow().addComponents(
+        buttonList[0].setDisabled(true),
+        buttonList[1].setDisabled(true)
+      );
+      curPage.edit({
+        embeds: [pages[page].setFooter(`Page ${page + 1} / ${pages.length}`)],
+        components: [disabledRow],
       });
     }
+  });
+
+  return curPage;
+  }
 };
