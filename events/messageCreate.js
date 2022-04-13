@@ -35,10 +35,15 @@ client.on('messageCreate', async (message) => {
         return
     }
 
-    if (!message.content.toLowerCase().startsWith(guild.prefix)) return;
+    let guildprefix = guild.prefix;
+    if (!guildprefix) {
+        guildprefix = process.env.PREFIX;
+    }
+
+    if (!message.content.toLowerCase().startsWith(guildprefix)) return;
 
     const [cmd, ...args] = message.content
-        .slice(guild.prefix.length)
+        .slice(guildprefix.length)
         .trim()
         .split(/ +/g)
 

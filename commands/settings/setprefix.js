@@ -32,7 +32,7 @@ module.exports = {
 
             let embed = new MessageEmbed()
                 .setDescription(`Berhasil setting prefix menjadi ${newprefix}`)
-                .setTimestamp(new Date())
+                .setTimestamp()
                 .setColor(client.config.berhasil)
             message.channel.send({ embeds: [embed] }).then(msg => {
                 setTimeout(() => msg.delete(), 6000)
@@ -41,8 +41,8 @@ module.exports = {
 
             // Send Report to ModLog
             let report = new MessageEmbed()
-                .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${newprefix}`)
-                .setTimestamp(new Date())
+                .setDescription(`User **${message.author.username}** mengubah prefix menjadi ${newprefix}`)
+                .setTimestamp()
                 .setColor(client.config.berhasil)
             modlog.send({ embeds: [report] });
 
