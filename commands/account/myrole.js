@@ -33,12 +33,13 @@ module.exports = {
             });
 
             if (!guild) return;
-    
-            if(!args[0]) {
-                let icon = myRole.iconURL()
+
+            let icon = myRole.iconURL()
                 if (!icon) {
-                    icon = guildicon;
+                   icon = guildicon;
                 }
+    
+            if(!args[0]) {                
                 let help = new MessageEmbed()
                 .setColor(myRole.color)
                 .setDescription(`
@@ -119,7 +120,7 @@ module.exports = {
                         let embed = new MessageEmbed()
                             .setDescription(`<a:verified:962503696288215051> Berhasil mengubah warna role <@&${update.id}>`)
                             .setTimestamp()
-                            .setColor(client.config.berhasil)
+                            .setColor(update.color)
                         message.channel.send({ embeds: [embed] }).then(msg => {
                             setTimeout(() => msg.delete(), 5000)
                           });
@@ -170,6 +171,20 @@ module.exports = {
                           });
                     }               
                 })
+            } else if (args[0].toLowerCase() === 'info') {
+                let roleID = data.roleID;
+                let memberWithRole = message.guild.roles.cache.get(roleID);
+                
+                let embedMyRole = new MessageEmbed()
+                    .setTitle(`${myRole.name} Information`)
+                    .setThumbnail(icon)
+                    .setColor(myRole.color)
+                    .addField(`Owner`, `<@${data.userID}>`)
+                    .addField(`Created Date`, createdDate)
+                    .addField(`Size Member`, `${memberWithRole.members.size} User`)
+                    .addField(`Member in Role`, `${memberWithRole.members.map((a) =>  `<@${a.user.id}>`).join('\n')}`)
+                    .setTimestamp()
+                message.channel.send({ embeds: [embedMyRole] });
             }
             
         } catch(error) {
