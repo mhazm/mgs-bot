@@ -147,8 +147,8 @@ module.exports = {
                 
                 answer.on('collect', m => {
                     const finalanswer = m.content;
-                    if (finalanswer.length > 100 ) {
-                        return message.reply('Nama Role kamu tidak boleh lebih dari 50 karakter!').then(msg => {
+                    if (finalanswer.length > 500 ) {
+                        return message.reply('URL kamu tidak boleh lebih dari 500 karakter!').then(msg => {
                             setTimeout(() => msg.delete(), 5000)
                           });
                     }
