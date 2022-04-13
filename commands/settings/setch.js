@@ -24,8 +24,8 @@ module.exports = {
     
             if(!args[0]) {
                 let err = new Discord.MessageEmbed()
-                    .setDescription('Kamu harus menggunakan arguments untuk mensetting channel.\nContoh: !setch <args> <channel>\n\nList Argument bisa dilihat dibawah ini')
-                    .addField('List Agruments', '1. welcome\n2. modlog')
+                    .setDescription('Kamu harus menggunakan arguments untuk mensetting channel.\nContoh: !setch <args> <channel>')
+                    .addField('List Agruments', 'welcome, bye, modlog, isolasi, levelup, afk, story, income, chatmoney')
                     .setColor(client.config.warning)
                 return message.channel.send({ embeds: [err] }).then(msg => {
                     setTimeout(() => msg.delete(), 15000)
@@ -61,7 +61,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah bye channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -78,7 +78,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah modlog channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -95,7 +95,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah afk channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -112,7 +112,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah story/anon channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -129,7 +129,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah income channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -146,7 +146,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah chat-money channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -163,7 +163,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah levelup channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
@@ -180,7 +180,7 @@ module.exports = {
     
                 // Send Report to ModLog
                 let report = new Discord.MessageEmbed()
-                    .setDescription(`User **${message.author.username}** mengubah welcome channel ke ${channel}`)
+                    .setDescription(`User **${message.author.username}** mengubah isolasi channel ke ${channel}`)
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
