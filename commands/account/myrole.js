@@ -140,28 +140,43 @@ module.exports = {
                     setTimeout(() => msg.delete(), 30_000)
                   });
                 
-                const filter = m => m.content && m.author.id === message.author.id;
+                const filter = m => m.attachments && m.author.id === message.author.id;
                 channel = message.channel;
     
                 const answer = channel.createMessageCollector({ filter, max: 1, time: 30_000, errors:['time'] })
                 
                 answer.on('collect', m => {
-                    const finalanswer = m.content;
-                    if (finalanswer.length > 500 ) {
-                        return message.reply('URL kamu tidak boleh lebih dari 500 karakter!').then(msg => {
-                            setTimeout(() => msg.delete(), 5000)
-                          });
+                    if (m.attachments.size > 0) {
+                        console.log(m.attachments.first().url)
+                        let attachmentUrl = m.attachments.first().url;
+
+                        myRole.edit({
+                            icon: attachmentUrl,
+                        }).then(update => {
+                            let embed = new MessageEmbed()
+                                .setDescription(`<a:verified:962503696288215051> Berhasil mengubah icon role <@&${update.id}>`)
+                                .setTimestamp()
+                                .setColor(client.config.berhasil)
+                                .setImage(attachmentUrl)
+                            return message.channel.send({ embeds: [embed] });
+                        })  
                     }
-    
-                    myRole.edit({
-                        icon: finalanswer,
-                    }).then(update => {
-                        let embed = new MessageEmbed()
-                            .setDescription(`<a:verified:962503696288215051> Berhasil mengubah icon role <@&${update.id}>`)
-                            .setTimestamp()
-                            .setColor(client.config.berhasil)
-                        message.channel.send({ embeds: [embed] });
-                    })
+                    else 
+                    if (!m.content.startsWith('https://' || `http://`)) {
+                        return message.reply('Tolong bro, masukin url! bukannya malah curhat..');
+                    } else 
+                    if (m.content.startsWith('https://' || `http://`)) {   
+                        myRole.edit({
+                            icon: m.content,
+                        }).then(update => {
+                            let embed = new MessageEmbed()
+                                .setDescription(`<a:verified:962503696288215051> Berhasil mengubah icon role <@&${update.id}>`)
+                                .setTimestamp()
+                                .setColor(client.config.berhasil)
+                                .setImage(m.content)
+                            return message.channel.send({ embeds: [embed] });
+                        })
+                    }
                 });
                 
                 answer.on('end', m => {

@@ -497,21 +497,37 @@ module.exports = {
                     }               
                 })
             } else if (args[0].toLowerCase() === 'banner') {
-                message.reply('Tolong taruh link/url yang berisikan gambar!');
+                message.reply('Tolong taruh link/url yang berisikan gambar atau upload langsung via discord!');
                 
-                const filter = m => m.content && m.author.id === message.author.id;
+                const filter = m => m.attachments && m.author.id === message.author.id;
                 channel = message.channel;
     
                 const answer = channel.createMessageCollector({ filter, max: 1, time: 30_000, errors:['time'] })
                 
                 answer.on('collect', m => {
-                    const finalanswer = m.content;
-                    let embed = new MessageEmbed()
-                    .setDescription(`Berhasil setting profile social media status kamu menjadi ${finalanswer}`)
-                    .setTimestamp(new Date())
-                    .setColor(client.config.berhasil)
-                    message.channel.send({ embeds: [embed] });
-                    data.banner = finalanswer; data.save();
+                    if (m.attachments.size > 0) {
+                        console.log(m.attachments.first().url)
+                        let attachmentUrl = m.attachments.first().url;
+                        let embed = new MessageEmbed()
+                        .setDescription(`<a:verified:962503696288215051> Berhasil setting banner profile baru`)
+                        .setTimestamp(new Date())
+                        .setColor(client.config.berhasil)
+                        .setImage(attachmentUrl)
+                        data.banner = attachmentUrl; data.save();
+                        return message.channel.send({ embeds: [embed] });
+                    } else 
+                    if (!m.content.startsWith('https://' || `http://`)) {
+                        return message.reply('Tolong bro, masukin url! bukannya malah curhat..');
+                    } else 
+                    if (m.content.startsWith('https://' || `http://`)) {
+                        let embed = new MessageEmbed()
+                        .setDescription(`Berhasil setting icon baru`)
+                        .setTimestamp(new Date())
+                        .setColor(client.config.berhasil)
+                        .setImage(m.content)
+                        data.banner = m.content; data.save();
+                        return message.channel.send({ embeds: [embed] });
+                    }                    
                 });
                 
                 answer.on('end', m => {
