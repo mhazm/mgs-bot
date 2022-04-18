@@ -2,8 +2,8 @@ const { glob } = require("glob");
 const { promisify } = require("util");
 const { Client } = require("discord.js");
 const mongoose = require("mongoose");
+const fs = require("fs");
 require('dotenv').config();
-
 
 const globPromise = promisify(glob);
 
@@ -69,4 +69,6 @@ module.exports = async (client) => {
     client.util = new Util;
     client.jadwalsholat = new JadwalSholat;
     client.westmanga = new Westmanga;
+
+     
 };
