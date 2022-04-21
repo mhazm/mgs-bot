@@ -14,7 +14,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-            if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]))
+            if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
             return message.reply(`Siapa lu woy!!`).then(msg => {
                 setTimeout(() => msg.delete(), 3000)
             });
