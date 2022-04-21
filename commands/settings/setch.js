@@ -2,14 +2,14 @@ const Discord = require("discord.js");
 const Guild = require("../../models/Guild.js");
 
 module.exports = {
-    name: "settingchannel",
-    aliases: ["setch"],
+    name: "setch",
+    aliases: ["setchannel"],
     description: "Setting channel",
     usage: "<setting name> <channel>",
     category: "settings",
     run: async(client, message, args) => {
         try {          
-            if (!message.member.permissions.has([Discord.Permissions.FLAGS.ADMINISTRATOR]))
+            if (!message.member.permissions.has([Discord.Permissions.FLAGS.BAN_MEMBERS]))
             return message.reply(`Siapa lu woy!!`).then(msg => {
                 setTimeout(() => msg.delete(), 3000)
             });

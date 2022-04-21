@@ -102,12 +102,11 @@ module.exports = {
           `${joindate} \nSejak **${joined}** hari lalu`
         )
         .addField("💰 Money", `Rp. ${data.money || 0}`, inline)
-        .addField("🛡️ Level", `${data.level || 1}`, inline)
+        .addField("🛡️ Level", `${data.level || 0}`, inline)
         .addField("🏃‍♂️ XP", `${data.xp || 0}/${exprequired}`, inline)
         .addField("📧 Messages", `${data.messages || 0}`, inline)
         .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
         .addField("💤 Mute", `${data.muted || 0}x`, inline)
-        .addField("📖 Quest Done", `${data.questdone || 0} Quest`, inline)
         .setImage(`${data.banner}`)
     
       let page = 0;
@@ -125,7 +124,7 @@ module.exports = {
 
   const row = new Discord.MessageActionRow().addComponents(buttonList);
   const curPage = await message.channel.send({
-    embeds: [pages[page].setFooter(`Page ${page + 1} / ${pages.length}`)],
+    embeds: [pages[page].setFooter({text: `Page ${page + 1} / ${pages.length} | Request by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })],
     components: [row],
   });
 
@@ -151,7 +150,7 @@ module.exports = {
     }
     await i.deferUpdate();
     await i.editReply({
-      embeds: [pages[page].setFooter(`Page ${page + 1} / ${pages.length}`)],
+      embeds: [pages[page].setFooter({text: `Page ${page + 1} / ${pages.length} | Request by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })],
       components: [row],
     });
     collector.resetTimer();
@@ -164,7 +163,7 @@ module.exports = {
         buttonList[1].setDisabled(true)
       );
       curPage.edit({
-        embeds: [pages[page].setFooter(`Page ${page + 1} / ${pages.length}`)],
+        embeds: [pages[page].setFooter({text: `Page ${page + 1} / ${pages.length} | Request by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })],
         components: [disabledRow],
       });
     }
