@@ -18,6 +18,7 @@ client.slashCommands = new Collection();
 client.config = require("./config.json");
 client.version = require("./package.json").version;
 require('dotenv').config();
+require('./src/routes/index');
 
 
 // Initializing the project
