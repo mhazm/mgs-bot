@@ -74,6 +74,10 @@ const schema = mongoose.Schema({
             type: String,
             default: ''
         },
+        convert: {
+            type: String,
+            default: ''
+        },
     },
     budget: {
         type: Number,
