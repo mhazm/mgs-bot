@@ -13,7 +13,6 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const member = message.guiild.member();
         const now = new Date();
         const formatDate = moment.tz(now, "Asia/Jakarta").format("LLLL");
 
@@ -51,10 +50,8 @@ module.exports = {
 
         const saldo = user.money;
         if (saldo < nominal) {
-            return message.reply('Saldo kamu kurang!');
+            return message.reply(`Saldo kamu kurang. Saat ini kamu hanya memiliki Rp.${saldo}`);
         }
-
-        if (!datauser) client.nodb(member.user);
 
         let guild = await Guild.findOne({
             guildID: message.guild.id,
@@ -66,7 +63,7 @@ module.exports = {
         }
 
         if (guild.active.convert === false) {
-            return message.reply('Sorry bro, convert lagi ditutup sekarang...');
+            return message.reply('Sorry bro, payout-system lagi ditutup sekarang...');
         }
 
         const convertCh = client.channels.cache.get(guild.channel.convert);
@@ -82,7 +79,7 @@ module.exports = {
                     .setTitle(`<:bmoney:836506631063470090> ${message.author.username} New Convert`)
                     .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                     .setColor("GREEN")
-                    .addField("Username", message.author.username)
+                    .addField("Username", `<@${message.author.id}>`)
                     .addField("Tujuan", tujuan, true)
                     .addField("Nomor Tujuan", nomortujuan, true)
                     .addField("Nominal", `Rp.${nominal}`, true)
@@ -115,7 +112,7 @@ module.exports = {
                     .setTitle(`<:bmoney:836506631063470090> ${message.author.username} New Convert`)
                     .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
                     .setColor("GREEN")
-                    .addField("Username", message.author.username)
+                    .addField("Username", `<@${message.author.id}>`)
                     .addField("Tujuan", tujuan, true)
                     .addField("Nomor Tujuan", nomortujuan, true)
                     .addField("Nominal", `Rp.${nominal}`, true)
