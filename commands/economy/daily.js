@@ -63,7 +63,7 @@ module.exports = {
                 let embed = new MessageEmbed()
                 .setColor("GREEN")
                 .setDescription(
-                    `Kamu mendapatkan **1 Point** dan **Rp.${randMoney}** dari daily kamu hari ini.
+                    `${message.author.username} mendapatkan **1 Point** dan **Rp.${randMoney}** dari daily kamu hari ini.
                 `)
                 .setFooter({text: `Kamu dapat command daily kamu lagi dalam waktu 24 jam!`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
                 .setTimestamp()
@@ -89,7 +89,7 @@ module.exports = {
                 let embed = new MessageEmbed()
                 .setColor("YELLOW")
                 .setDescription(
-                    `Kamu mendapatkan **Rp.${randMoney}** dari daily kamu hari ini.
+                    `${message.author.username} mendapatkan **Rp.${randMoney}** dari daily kamu hari ini.
                 `)
                 .setFooter({text: `Kamu dapat command daily kamu lagi dalam waktu 24 jam!`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
                 .setTimestamp()
