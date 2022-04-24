@@ -4,8 +4,9 @@ const Guild = require('../../models/Guild.js');
 const { COLOR } = process.env;
 
 module.exports = {
-    name: 'myconfig',
+    name: 'serverconfig',
     description: 'Melihat settingan server',
+    aliases: ["scg", "sc"],
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -34,10 +35,11 @@ module.exports = {
                 .addField(`Modlog Channel`, `${client.channels.cache.get(data.channel.modlog) || `Unknown`}`, true)
                 .addField(`Incomelog Channel`, `${client.channels.cache.get(data.channel.income) || `Unknown`}`, true)
                 .addField(`Levelup Channel`, `${client.channels.cache.get(data.channel.levelup) || `Unknown`}`, true)
-                .addField(`Chatmoney Channel`, `${client.channels.cache.get(data.channel.chatmoney) || `Unknown`}`, true)
+                .addField(`Chatmoney Category`, `${client.channels.cache.get(data.channel.chatmoney) || `Unknown`}`, true)
                 .addField(`Story/Anon Channel`, `${client.channels.cache.get(data.channel.story) || `Unknown`}`, true)
                 .addField(`AFK Channel`, `${client.channels.cache.get(data.channel.afk) || `Unknown`}`, true)
                 .addField(`Isolasi Channel`, `${client.channels.cache.get(data.channel.isolasi) || `Unknown`}`, true)
+                .addField(`Convert Channel`, `${client.channels.cache.get(data.channel.convert) || `Unknown`}`, true)
                 .setTimestamp();
 
             let embed2 = new MessageEmbed()
@@ -66,6 +68,7 @@ module.exports = {
                 .addField(`Apply Status`, `${statusPTC(data.active.apply)}`, true)
                 .addField(`Convert Status`, `${statusPTC(data.active.convert)}`, true)
                 .addField(`Give Status`, `${statusPTC(data.active.give)}`, true)
+                .addField(`Holiday Status`, `${statusPTC(data.active.holiday)}`, true)
                 .setTimestamp();
             
             let embed4 = new MessageEmbed()
@@ -73,6 +76,7 @@ module.exports = {
                 .setColor(COLOR)
                 .setDescription(`Berikut ini adalah settingan untuk ${message.member.guild.name}`)
                 .addField(`Prefix`, data.prefix)
+                .addField(`Server Budget`, `Rp.${data.budget}`)
                 .addField(`Fine Setting`, `Minimum : Rp.${data.fined.min}\nMaximum : Rp.${data.fined.max}`)
                 .addField(`Chat Income Setting`, `Minimum : Rp.${data.money.min}\nMaximum : Rp.${data.money.max}`)
                 .addField(`Exp Setting`, `Minimum : ${data.exp.min}\nMaximum : ${data.exp.max}`)

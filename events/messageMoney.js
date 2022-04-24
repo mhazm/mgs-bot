@@ -28,6 +28,18 @@ client.on('messageCreate', async (message) => {
             userID: message.author.id,
         })
 
+        if (!user) {
+            const account = {
+                username: message.author.username,
+                userId: message.author.id,
+            }
+            User.create({
+                account,
+                guildID: member.guild.id,
+                userID: message.author.id,
+            });
+        }
+
         const guild = await Guild.findOne({ 
             guildID: message.guild.id,
         })
@@ -46,6 +58,11 @@ client.on('messageCreate', async (message) => {
                 // DUIT + EXP
                 let randexp = Math.floor(Math.random() * (expmax - expmin) + expmin);
                 let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin);
+
+                if (guild.active.holiday === true) {
+                    randexp *= 2;
+                    rand *= 2;
+                }
 
                 // Saving
                 user.money += rand;

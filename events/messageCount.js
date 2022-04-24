@@ -18,6 +18,19 @@ client.on('messageCreate', async (message) => {
             userID: message.author.id,
         })
 
+        if (!user) {
+            const account = {
+                username: author.username,
+                userId: message.author.id,
+            }
+            User.create({
+                account,
+                guildID: message.guild.id,
+                userID: message.author.id,
+            })
+            return
+        }
+
         user.messages++;
         user.save();
 

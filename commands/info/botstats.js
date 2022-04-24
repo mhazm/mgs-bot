@@ -34,6 +34,7 @@ module.exports = {
 • OS Uptime           :: ${ms(os.uptime() ?? 0, { long: true })}
 • Node.js version     :: ${process.version}
 • Discord.js version  :: v${discord.version}
+• Bot Creator         :: Watambeee#6688
 • Bot Version         :: v${packageJson.version}
 \`\`\`
             `)

@@ -74,6 +74,10 @@ const schema = mongoose.Schema({
             type: String,
             default: ''
         },
+        convert: {
+            type: String,
+            default: ''
+        },
     },
     budget: {
         type: Number,
@@ -139,6 +143,10 @@ const schema = mongoose.Schema({
             default: "false"
         },
         give: {
+            type: Boolean,
+            default: "false"
+        },
+        holiday: {
             type: Boolean,
             default: "false"
         },
