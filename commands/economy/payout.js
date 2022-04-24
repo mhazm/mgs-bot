@@ -3,7 +3,7 @@ const Convert = require('../../models/Convert');
 const User = require('../../models/User');
 const Guild = require('../../models/Guild');
 const moment = require('moment-timezone');
-moment.locale(id);
+moment.locale('id');
 
 module.exports = {
     name: 'payout',
