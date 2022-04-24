@@ -146,6 +146,10 @@ const schema = mongoose.Schema({
             type: Boolean,
             default: "false"
         },
+        holiday: {
+            type: Boolean,
+            default: "false"
+        },
 	}
 });
 
