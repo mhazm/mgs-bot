@@ -184,6 +184,23 @@ module.exports = {
                     .setTimestamp(new Date())
                     .setColor(client.config.berhasil)
                 modlog.send({ embeds: [report] });
+            } else
+            if (args[0].toLowerCase() === 'convert') {
+                let channel =  message.mentions.channels.first();
+                if(!channel) return message.channel.send("Tolong di tag dulu channelnya!");
+                let embed = new Discord.MessageEmbed()
+                    .setDescription(`Berhasil setting convert channel di ${channel}`)
+                    .setTimestamp(new Date())
+                    .setColor(client.config.berhasil)
+                message.channel.send({ embeds: [embed] });
+                data.channel.convert = channel.id; data.save();
+    
+                // Send Report to ModLog
+                let report = new Discord.MessageEmbed()
+                    .setDescription(`User **${message.author.username}** mengubah convert channel ke ${channel}`)
+                    .setTimestamp(new Date())
+                    .setColor(client.config.berhasil)
+                modlog.send({ embeds: [report] });
             }
         } catch (error) {
             return message.channel.send({ content: `Something went wrong: ${error.message}` });
