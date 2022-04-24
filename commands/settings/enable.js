@@ -51,7 +51,7 @@ module.exports = {
                     let embedS = new MessageEmbed()
                     .setDescription('Feature welcome-system telah berhasil diaktifkan!')
                     .setColor("GREEN")
-                    .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat semua pengaturan di guild!`})
+                    .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat semua pengaturan di guild!`})
                     .setTimestamp()
                     message.channel.send({ embeds: [embedS] });
                 });
@@ -78,7 +78,7 @@ module.exports = {
                     let embedS = new MessageEmbed()
                     .setDescription('Feature bye-system telah berhasil diaktifkan!')
                     .setColor("GREEN")
-                    .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat semua pengaturan di guild!`})
+                    .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat semua pengaturan di guild!`})
                     .setTimestamp()
                     message.channel.send({ embeds: [embedS] });
                 });
@@ -96,7 +96,7 @@ module.exports = {
                     let embedS = new MessageEmbed()
                     .setDescription('Feature apply-system telah berhasil diaktifkan!')
                     .setColor("GREEN")
-                    .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat semua pengaturan di guild!`})
+                    .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat semua pengaturan di guild!`})
                     .setTimestamp()
                     message.channel.send({ embeds: [embedS] });
                 });
@@ -114,7 +114,7 @@ module.exports = {
                     let embedS = new MessageEmbed()
                     .setDescription('Feature payout-system telah berhasil diaktifkan!')
                     .setColor("GREEN")
-                    .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat semua pengaturan di guild!`})
+                    .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat semua pengaturan di guild!`})
                     .setTimestamp()
                     message.channel.send({ embeds: [embedS] });
                 });
@@ -132,7 +132,25 @@ module.exports = {
                     let embedS = new MessageEmbed()
                     .setDescription('Feature give-system telah berhasil diaktifkan!')
                     .setColor("GREEN")
-                    .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat semua pengaturan di guild!`})
+                    .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat semua pengaturan di guild!`})
+                    .setTimestamp()
+                    message.channel.send({ embeds: [embedS] });
+                });
+            
+            } else if (opt === 'holiday') {
+                if (guild.active.holiday === true) {
+                    return message.reply(`Saat ini holiday-system sudah berjalan!`).then(msg => {
+                        setTimeout(() => msg.delete(), 5000)
+                    });
+                }
+    
+                // Proses
+                guild.active.holiday = value;
+                guild.save().then(() => {
+                    let embedS = new MessageEmbed()
+                    .setDescription('Feature holiday-system telah berhasil diaktifkan!')
+                    .setColor("GREEN")
+                    .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat semua pengaturan di guild!`})
                     .setTimestamp()
                     message.channel.send({ embeds: [embedS] });
                 });

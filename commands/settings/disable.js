@@ -40,7 +40,7 @@ module.exports = {
                 let embedN = new MessageEmbed()
                 .setDescription('Feature `welcome` sukses di non-aktifkan!')
                 .setColor('GREEN')
-                .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat detail seluruh config guild!`})
+                .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat detail seluruh config guild!`})
                 .setTimestamp()
                 message.channel.send({ embeds: [embedN] });
             } else if (opt === "bye") {
@@ -53,7 +53,7 @@ module.exports = {
                 let embedN = new MessageEmbed()
                 .setDescription('Feature `bye` sukses di non-aktifkan!')
                 .setColor('GREEN')
-                .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat detail seluruh config guild!`})
+                .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat detail seluruh config guild!`})
                 .setTimestamp()
                 message.channel.send({ embeds: [embedN] });
             } else if (opt === "apply") {
@@ -66,7 +66,7 @@ module.exports = {
                 let embedN = new MessageEmbed()
                 .setDescription('Feature `apply` sukses di non-aktifkan!')
                 .setColor('GREEN')
-                .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat detail seluruh config guild!`})
+                .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat detail seluruh config guild!`})
                 .setTimestamp()
                 message.channel.send({ embeds: [embedN] });
             } else if (opt === "payout") {
@@ -79,7 +79,7 @@ module.exports = {
                 let embedN = new MessageEmbed()
                 .setDescription('Feature `payout` sukses di non-aktifkan!')
                 .setColor('GREEN')
-                .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat detail seluruh config guild!`})
+                .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat detail seluruh config guild!`})
                 .setTimestamp()
                 message.channel.send({ embeds: [embedN] });
             } else if (opt === "give") {
@@ -92,7 +92,20 @@ module.exports = {
                 let embedN = new MessageEmbed()
                 .setDescription('Feature `give` sukses di non-aktifkan!')
                 .setColor('GREEN')
-                .setFooter({ text: `Ketik ${guild.prefix}myconfig untuk melihat detail seluruh config guild!`})
+                .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat detail seluruh config guild!`})
+                .setTimestamp()
+                message.channel.send({ embeds: [embedN] });
+            } else if (opt === "holiday") {
+                if (guild.active.holiday ===  false) {
+                    return message.reply(`Saat ini holiday-system sudah tidak aktif.`);
+                }
+    
+                guild.active.holiday = value;
+                guild.save()
+                let embedN = new MessageEmbed()
+                .setDescription('Feature `holiday` sukses di non-aktifkan!')
+                .setColor('GREEN')
+                .setFooter({ text: `Ketik ${guild.prefix}serverconfig untuk melihat detail seluruh config guild!`})
                 .setTimestamp()
                 message.channel.send({ embeds: [embedN] });
             }
