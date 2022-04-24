@@ -4,8 +4,9 @@ const Guild = require('../../models/Guild.js');
 const { COLOR } = process.env;
 
 module.exports = {
-    name: 'myconfig',
+    name: 'serverconfig',
     description: 'Melihat settingan server',
+    aliases: ["scg", "sc"],
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -73,6 +74,7 @@ module.exports = {
                 .setColor(COLOR)
                 .setDescription(`Berikut ini adalah settingan untuk ${message.member.guild.name}`)
                 .addField(`Prefix`, data.prefix)
+                .addField(`Server Budget`, `Rp.${data.budget}`)
                 .addField(`Fine Setting`, `Minimum : Rp.${data.fined.min}\nMaximum : Rp.${data.fined.max}`)
                 .addField(`Chat Income Setting`, `Minimum : Rp.${data.money.min}\nMaximum : Rp.${data.money.max}`)
                 .addField(`Exp Setting`, `Minimum : ${data.exp.min}\nMaximum : ${data.exp.max}`)
