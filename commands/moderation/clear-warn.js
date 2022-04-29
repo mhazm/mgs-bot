@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed, Permissions } = require('discord.js');
+const { Client, Message, MessageEmbed } = require('discord.js');
 const db = require('../../models/Warn.js');
 const User = require('../../models/User.js');
 const Guild = require('../../models/Guild.js');
@@ -15,7 +15,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-            if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
+            if (message.author.id !== process.env.OWNERID)
             return message.reply(`Siapa lu woy!!`).then(msg => {
                 setTimeout(() => msg.delete(), 3000)
               });
