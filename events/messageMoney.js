@@ -55,9 +55,11 @@ client.on('messageCreate', async (message) => {
                 const expmin = guild.exp.min;
                 const expmax = guild.exp.max;
 
+                let userWarn = user.warn;
+
                 // DUIT + EXP
                 let randexp = Math.floor(Math.random() * (expmax - expmin) + expmin);
-                let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin);
+                let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin - userWarn);
 
                 if (guild.active.holiday === true) {
                     randexp *= 2;
