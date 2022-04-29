@@ -32,6 +32,7 @@ module.exports = {
                 • waifu
                 • banner
                 • warna
+                • rankbg
                 
                 <a:kanan:819853363179945994> **Setting Game Profile**
                 • genshin
@@ -553,6 +554,45 @@ module.exports = {
                     .setColor(client.config.berhasil)
                     message.channel.send({ embeds: [embed] });
                     data.rankcard.color = finalanswer; data.save();
+                });
+                
+                answer.on('end', m => {
+                    if (m.size === 0) {
+                        message.reply('Kamu tidak memberikan jawaban.');
+                    }               
+                })
+            } else if (args[0].toLowerCase() === 'rankbg') {
+                message.reply('Tolong taruh link/url yang berisikan gambar atau upload langsung via discord!');
+                
+                const filter = m => m.attachments && m.author.id === message.author.id;
+                channel = message.channel;
+    
+                const answer = channel.createMessageCollector({ filter, max: 1, time: 30_000, errors:['time'] })
+                
+                answer.on('collect', m => {
+                    if (m.attachments.size > 0) {
+                        console.log(m.attachments.first().url)
+                        let attachmentUrl = m.attachments.first().url;
+                        let embed = new MessageEmbed()
+                        .setDescription(`<a:verified:962503696288215051> Berhasil setting background rankcard baru`)
+                        .setTimestamp(new Date())
+                        .setColor(client.config.berhasil)
+                        .setImage(attachmentUrl)
+                        data.rankcard.background = attachmentUrl; data.save();
+                        return message.channel.send({ embeds: [embed] });
+                    } else 
+                    if (!m.content.startsWith('https://' || `http://`)) {
+                        return message.reply('Tolong bro, masukin url! bukannya malah curhat..');
+                    } else 
+                    if (m.content.startsWith('https://' || `http://`)) {
+                        let embed = new MessageEmbed()
+                        .setDescription(`<a:verified:962503696288215051> Berhasil setting background rankcard baru`)
+                        .setTimestamp(new Date())
+                        .setColor(client.config.berhasil)
+                        .setImage(m.content)
+                        data.data.rankcard.background = m.content; data.save();
+                        return message.channel.send({ embeds: [embed] });
+                    }                    
                 });
                 
                 answer.on('end', m => {
