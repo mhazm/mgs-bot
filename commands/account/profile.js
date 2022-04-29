@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const User = require("../../models/User.js");
-const Guild = require("../../models/Guild.js");
-const moment = require("moment");
+const moment = require('moment-timezone');
+moment.locale('id');
 
 module.exports = {
   name: "profile",
@@ -25,8 +25,7 @@ module.exports = {
     let joined = Math.floor(y / 86400000);
 
     const member = message.guild.members.cache.get(user.id);
-    let joindate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY");
-    let avatar = user.avatarURL({ size: 4096 });
+    let joindate = moment.tz(member.joinedAt, "Asia/Jakarta").format("dddd, Do MMMM YYYY | HH:mm zz")
 
     if (member.bot) return message.channel.send("Its A Bot -_-");
 
@@ -36,18 +35,26 @@ module.exports = {
       userID: member.id,
     });
 
-    // Get UserData from Guild
-    let guildData = await Guild.findOne({ guildID: message.guild.id });
-    if (!data) return client.nodb(member.user);
+    if (!data) return;
 
     const color = data.rankcard.color;
-	const inline = true;
+	  const inline = true;
     const level = data.level;
     const exp = process.env.UPXP;
-    const lastupdate = moment
-      .utc(data.lastProfileUpdate)
-      .format("dddd, MMMM Do YYYY");
     exprequired = Math.round(level * exp);
+
+    const lastMessage = moment.tz(user.lastmessage, "Asia/Jakarta").format('dddd, Do MMMM YYYY | HH:mm zz')
+
+    const formatter = new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    });
+
+    let userMoney = formatter.format(data.money);
+    if (!userMoney) {
+      userMoney = formatter.format(0);
+    }
+
 
     //Profile Button
     const button1 = new Discord.MessageButton()
@@ -101,12 +108,13 @@ module.exports = {
           "Tanggal Bergabung",
           `${joindate} \nSejak **${joined}** hari lalu`
         )
-        .addField("💰 Money", `Rp. ${data.money || 0}`, inline)
+        .addField("💰 Money", `${userMoney}`, inline)
         .addField("🛡️ Level", `${data.level || 0}`, inline)
         .addField("🏃‍♂️ XP", `${data.xp || 0}/${exprequired}`, inline)
         .addField("📧 Messages", `${data.messages || 0}`, inline)
         .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
         .addField("💤 Mute", `${data.muted || 0}x`, inline)
+        .addField("📝 Last Messages", `${lastMessage || `Unknowed`}`)
         .setImage(`${data.banner}`)
     
       let page = 0;

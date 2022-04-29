@@ -8,7 +8,8 @@ const client = new Client({ intents:
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_BANS,
     Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-    Intents.FLAGS.DIRECT_MESSAGES]
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.GUILD_INTEGRATIONS]
 });
 module.exports = client;
 

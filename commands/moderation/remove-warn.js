@@ -15,7 +15,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-            if (!message.member.permissions.has([Permissions.FLAGS.BAN_MEMBERS]))
+            if (!message.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]))
             return message.reply(`Siapa lu woy!!`).then(msg => {
                 setTimeout(() => msg.delete(), 3000)
               });
@@ -45,6 +45,19 @@ module.exports = {
                     });
             };
 
+            const warn1Role = message.guild.roles.cache.get(data.role.warn1);
+            if (!warn1Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
+            const warn2Role = message.guild.roles.cache.get(data.role.warn2);
+            if (!warn2Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
+            const warn3Role = message.guild.roles.cache.get(data.role.warn3);
+            if (!warn3Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
+
             if (!target) return bot.nodb(member.user);
             db.findOne({ guildid : message.guild.id, user: user.user.id}, async(err,data) => {
                 if(err) throw err;
@@ -71,6 +84,17 @@ module.exports = {
             })
             target.warn -= Math.floor(parseInt(1));
             target.save();
+
+            // GIVE WARN ROLE
+            if (target.warn <= 2) {
+                user.roles.remove(warn1Role)
+            } if (target.warn <= 4) {
+                user.roles.remove(warn2Role)
+                user.roles.add(warn1Role)
+            } if (target.warn <= 8 ) {
+                user.roles.remove(warn3Role)
+                user.roles.add(warn2Role)
+            };
         } catch (error) {
             return console.log(error);
         };

@@ -1,7 +1,5 @@
 const client = require('../index')
 const User = require('../models/User.js')
-const Guild = require('../models/Guild.js')
-
 
 client.on('messageCreate', async (message) => {
     try {
@@ -30,8 +28,10 @@ client.on('messageCreate', async (message) => {
             })
             return
         }
+        const now = new Date()
 
         user.messages++;
+        user.lastmessage = now;
         user.save();
 
     } catch (err) {

@@ -93,7 +93,7 @@ class JadwalSholat {
                     .addField('Ashar', `${get.data.data.jadwal.ashar || `Unknown`}`, true)
                     .addField('Maghrib', `${get.data.data.jadwal.maghrib || `Unknown`}`, true)
                     .addField('Isya', `${get.data.data.jadwal.isya || `Unknown`}`, true)
-                    .addField('Waktu Saat ini', timenow)
+                    .setFooter({ text: `Request by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
                 await message.channel.send({
                     embeds: [embed]
                 })
