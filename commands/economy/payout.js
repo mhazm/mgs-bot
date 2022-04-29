@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed } = require('discord.js');
 const Convert = require('../../models/Convert');
 const User = require('../../models/User');
 const Guild = require('../../models/Guild');
+const math = require('mathjs');
 const moment = require('moment-timezone');
 moment.locale('id');
 
@@ -15,6 +16,11 @@ module.exports = {
     run: async(client, message, args) => {
         const now = new Date();
         const formatDate = moment.tz(now, "Asia/Jakarta").format("LLLL");
+
+        const formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+        });
 
         const tujuan = args[0];
         if (!tujuan) {
@@ -34,28 +40,44 @@ module.exports = {
         if (nomortujuan.length > 13) {
             return message.reply('Yakin nih nomernya kurang dari 13 digit?');
         }
-
-        const nominal = args[2];
-        if (nominal < 10000) {
-            return message.reply('Payout minimum adalah Rp.10.000');
-        }
-        if (isNaN(nominal)) {
-            return message.reply('Nominal harus berupa angka!');
-        }
-
+        
         let user = await User.findOne({
             guildID: message.guild.id,
             userID: message.author.id,
         });
-
-        const saldo = user.money;
-        if (saldo < nominal) {
-            return message.reply(`Saldo kamu kurang. Saat ini kamu hanya memiliki Rp.${saldo}`);
-        }
-
+       
         let guild = await Guild.findOne({
             guildID: message.guild.id,
         });
+
+        let guildTax = guild.tax;
+        if (!guildTax) {
+            guildTax = 5;
+        }
+
+        const nom = args[2];
+        if (nom < 10000) {
+            return message.reply('Payout minimum adalah Rp.10.000');
+        }
+        if (isNaN(nom)) {
+            return message.reply('Nominal harus berupa angka!');
+        }
+
+        const tax = Math.floor(nom * (guildTax / 100));
+        const nominal = math.sum(nom, tax);
+        console.log(`Nominal : ${nom} | Tax: ${tax} | Total : ${nominal}`);
+
+        const saldo = user.money;
+        if (saldo < nominal) {
+            let erEm = new MessageEmbed()
+            .setColor("RED")
+            .setDescription(`Saldo kamu kurang untuk melakukan payout!\nSaldo kamu hanya **${formatter.format(saldo)}**`)
+            .addField(`Request Payout`, formatter.format(nom), true)
+            .addField(`Tax`, `${formatter.format(tax) || `5`} *(${guildTax}%)*`, true)
+            .addField(`Required for Payout`, `${formatter.format(nominal) || `Error`}`)
+            .setTimestamp()
+            return message.channel.send({ embeds: [erEm] });
+        }
 
         const budget = guild.budget;
         if (budget < nominal) {
@@ -82,7 +104,7 @@ module.exports = {
                     .addField("Username", `<@${message.author.id}>`)
                     .addField("Tujuan", tujuan, true)
                     .addField("Nomor Tujuan", nomortujuan, true)
-                    .addField("Nominal", `Rp.${nominal}`, true)
+                    .addField("Nominal", `${formatter.format(nom) || `Error`}`, true)
                     .addField("Tanggal", formatDate)
                     .addField("Status", "On Waiting List")
                     .setTimestamp();
@@ -96,14 +118,14 @@ module.exports = {
                     .addField("Username", message.author.username)
                     .addField("Tujuan", tujuan, true)
                     .addField("Nomor Tujuan", nomortujuan, true)
-                    .addField("Nominal", `Rp.${nominal}`, true)
+                    .addField("Nominal", `${formatter.format(nom) || `Error`}`, true)
                     .addField("Tanggal", formatDate)
                     .addField("Status", "On Waiting List")
                     .setTimestamp();
                 message.author.send({ embeds: [userNotif] });
 
                 user.money -= nominal;
-                guild.budget -= nominal;
+                guild.budget -= nom;
                 user.save();
                 guild.save();
                 message.reply(`Penukaran telah berhasil!\nSaldo kamu saat ini Rp.${user.money}`);
@@ -115,7 +137,7 @@ module.exports = {
                     .addField("Username", `<@${message.author.id}>`)
                     .addField("Tujuan", tujuan, true)
                     .addField("Nomor Tujuan", nomortujuan, true)
-                    .addField("Nominal", `Rp.${nominal}`, true)
+                    .addField("Nominal", `${formatter.format(nom) || `Error`}`, true)
                     .addField("Tanggal", formatDate)
                     .addField("Status", "On Waiting List")
                     .setTimestamp();
@@ -129,14 +151,14 @@ module.exports = {
                     .addField("Username", message.author.username)
                     .addField("Tujuan", tujuan, true)
                     .addField("Nomor Tujuan", nomortujuan, true)
-                    .addField("Nominal", `Rp.${nominal}`, true)
+                    .addField("Nominal", `${formatter.format(nom) || `Error`}`, true)
                     .addField("Tanggal", formatDate)
                     .addField("Status", "On Waiting List")
                     .setTimestamp();
                 message.author.send({ embeds: [userNotif] });
 
                 user.money -= nominal;
-                guild.budget -= nominal;
+                guild.budget -= nom;
                 user.save();
                 guild.save();
                 message.reply(`Penukaran telah berhasil!\nSaldo kamu saat ini Rp.${user.money}`);
@@ -155,7 +177,7 @@ module.exports = {
                             {
                                 tujuan: tujuan,
                                 nomor: nomortujuan,
-                                nominal: nominal,
+                                nominal: nom,
                                 tanggal: now,
                                 status: "Pending",
                             },
@@ -165,7 +187,7 @@ module.exports = {
                     const obj = {
                         tujuan: tujuan,
                         nomor: nomortujuan,
-                        nominal: nominal,
+                        nominal: nom,
                         tanggal: now,
                         status: "Pending",
                     };
