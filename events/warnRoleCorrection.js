@@ -1,8 +1,10 @@
 const client = require('../index')
 const User = require('../models/User.js')
 const Guild = require('../models/Guild.js')
+const { e } = require('mathjs')
 
 client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
     const target = message.guild.members.cache.get(message.author.id)
 
     let user = await User.findOne({
@@ -49,9 +51,9 @@ client.on('messageCreate', async (message) => {
         };
     };
 
-    if (user.warn <= 2 && user.warn === 0) {
+    if (user.warn <= 1 && user.warn === 0) {
         target.roles.remove(warn1Role)
         target.roles.remove(warn2Role)
         target.roles.remove(warn3Role)
-    };
+    }
 })
