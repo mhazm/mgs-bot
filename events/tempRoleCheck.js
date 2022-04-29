@@ -9,8 +9,8 @@ client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
     if (!message.guild) return;
 
-    let data = await Role.findOne({ userID: message.author.id, guildID: message.guild.id, expired: {$lt: new Date()} });
-
+    let data = await Role.findOne({ guildID: message.guild.id, expired: {$lt: new Date()} });
+    
     if (!data) return;
     
     console.log(`User Found!`);
