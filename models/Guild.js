@@ -17,6 +17,10 @@ const schema = mongoose.Schema({
             default: "100"
         },
 	},
+    tax: {
+        type: Number,
+        default: '5'
+    },
     money: {
 		min: {
             type: Number,
@@ -121,6 +125,14 @@ const schema = mongoose.Schema({
             default: ''
         },
         warn4: {
+            type: String,
+            default: ''
+        },
+        active: {
+            type: String,
+            default: ''
+        },
+        deactive: {
             type: String,
             default: ''
         },
