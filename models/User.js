@@ -89,11 +89,21 @@ const schema = mongoose.Schema({
             default: "FFFFFF"
         },
 	},
-    
+    bankcard: {
+		background: {
+            type: String,
+            default: "https://i.ibb.co/Yty7gFp/wallet-bg.png"
+        },
+		color: {
+            type: Array,
+            default: "FFFFFF"
+        },
+	},
     userID: String,
     guildID: String,
     username: String,
     lastpayday: Date,
+    lastmessage: Date,
     money: {
         type: Number,
         default: 0
