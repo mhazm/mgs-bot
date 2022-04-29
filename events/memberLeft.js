@@ -1,6 +1,8 @@
 const client = require('../index.js');
 const Discord = require('discord.js');
 const Guild = require('../models/Guild.js');
+const gif = require('nekos.life');
+const { sfw } = new gif()
 
 client.on('guildMemberRemove', async(member) => {
     try {
@@ -17,10 +19,13 @@ client.on('guildMemberRemove', async(member) => {
         const channel = member.guild.channels.cache.get(data.channel.bye);
         if (!channel) return;
 
+        let pat = await sfw.pat();
+
         // Embed Creator
         const embed = new Discord.MessageEmbed()
         .setColor(client.config.colorEmbed)
-        .setDescription(`Bye-bye!`)
+        .setDescription(`Sayonara ${member.user.username}!\nSemoga kita nanti bisa bertemu lagi ya!`)
+        .setImage(pat.url)
 
         // Send Embed
         channel.send({ embeds: [embed] })

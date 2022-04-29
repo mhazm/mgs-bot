@@ -46,4 +46,15 @@ const generateTip = ()=> {
 	return string;
 };
 
-module.exports = { determineSupporterTitle, generateTip, simpleSupporterTitle, statusPTC };
+const walletTip = ()=> {
+	let string = "Tips: ";
+	const strings = [
+		"Kamu hanya bisa mendapatkan uang dari chatting di main kategori lho",
+		"Ketik d.help payout untuk bantuan apabila ingin mencairkan uangmu!",
+		"Kamu bisa cek di channel income-member untuk cek pendapatanmu",
+	];
+	string += strings[Math.floor(Math.random() * strings.length)];
+	return string;
+};
+
+module.exports = { determineSupporterTitle, generateTip, simpleSupporterTitle, statusPTC, walletTip };
