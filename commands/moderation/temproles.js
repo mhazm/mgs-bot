@@ -1,7 +1,7 @@
 const { Client, Message, MessageEmbed, Permissions } = require('discord.js');
 const ms = require('ms')
 const Role = require('../../models/Role.js');
-const moment = require("moment");
+const moment = require('moment-timezone');
 
 module.exports = {
     name: 'temproles',
@@ -60,7 +60,7 @@ module.exports = {
                 let embedSuc = new MessageEmbed()
                 .setTitle(`Role Added!`)
                 .addField('Role', `<@&${roleGiven.id}>`)
-                .addField('Expired', expiredDate.format("Do MMMM YYYY"))
+                .addField('Expired', moment.tz(expiredDate, "Asia/Jakarta").format('dddd, Do MMMM YYYY | HH:mm zz'))
                 .addField('Member', `<@${user.user.id}>`)
                 .addField('Moderator', `<@${message.author.id}>`)
                 .setColor(client.config.berhasil)
