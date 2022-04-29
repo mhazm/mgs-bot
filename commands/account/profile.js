@@ -35,7 +35,7 @@ module.exports = {
       userID: member.id,
     });
 
-    if (!data) return client.nodb(member.user);
+    if (!data) return;
 
     const color = data.rankcard.color;
 	  const inline = true;
