@@ -44,8 +44,7 @@ module.exports = {
                 let doneEmbed = new MessageEmbed()
                     .setColor("RED")
                     .setDescription(
-                        `Kamu hanya dapat melalukan daily selama ${hours} jam sekali.
-                        Last Daily : ${moment(user.lastpayday, "Asia/Jakarta").format('D MMMM YYYY, H:mm')}
+                        `Kamu hanya dapat melalukan daily selama ${hours} jam sekali.\nLast Daily : ${moment(user.lastpayday, "Asia/Jakarta").format('D MMMM YYYY, H:mm')}
                     `)
                 if (diffHours <= hours) {
                     message.channel.send({ embeds: [doneEmbed] });
