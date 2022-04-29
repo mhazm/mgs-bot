@@ -6,7 +6,7 @@ const { MessageEmbed } = require('discord.js')
 const cooldown = new Set();
 
 function addToCooldown(ID) {
-  let cd = Math.floor(Math.random() * (60000 - 120000) + 120000);
+  let cd = Math.floor(Math.random() * (90000 - 200000) + 200000);
   cooldown.add(ID);
   setTimeout(() => {
     cooldown.delete(ID);
