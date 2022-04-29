@@ -29,6 +29,42 @@ module.exports = {
                 setTimeout(() => msg.delete(), 3000)
             });
 
+            // Find Target DB
+            let target = await User.findOne({
+                guildID: message.guild.id,
+                userID: user.user.id,
+            });
+    
+            if (!target) return bot.nodb(member.user);
+
+            //MODLOG DATA CHANNEL
+            let guild =  await Guild.findOne({
+                guildID: message.guild.id
+            });
+
+            const modlog = client.channels.cache.get(guild.channel.modlog);
+            if (!modlog) {
+                return message.reply(
+                    `Please setup this bot first with ${guild.prefix}setup or setting modlog channel with ${guild.prefix}setch modlog`
+                ).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
+            }
+
+            // Role Warn
+            const warn1Role = message.guild.roles.cache.get(guild.role.warn1);
+            if (!warn1Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
+            const warn2Role = message.guild.roles.cache.get(guild.role.warn2);
+            if (!warn2Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
+            const warn3Role = message.guild.roles.cache.get(guild.role.warn3);
+            if (!warn3Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+              });
+
             // Warn DB Schema            
             Warn.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
                 if(err) throw err;
@@ -53,33 +89,30 @@ module.exports = {
                 data.save()
             });
 
-            // Find Target DB
+            
+            // Calculate Fined
+            let warnTotal = target.warn;
 
-            let target = await User.findOne({
-                guildID: message.guild.id,
-                userID: user.user.id,
-            });
-    
-            if (!target) return bot.nodb(member.user);
-
-            //MODLOG DATA CHANNEL
-            let guild =  await Guild.findOne({
-                guildID: message.guild.id
-            });
-
-            const modlog = client.channels.cache.get(guild.channel.modlog);
-            if (!modlog) {
-                return message.reply(
-                    `Please setup this bot first with ${guild.prefix}setup or setting modlog channel with ${guild.prefix}setch modlog`
-                ).then(msg => {
-                    setTimeout(() => msg.delete(), 3000)
-                });
-            }
-
+            const finedMin = guild.fined.min;
+            const finedMax = guild.fined.max;
+            let fined = Math.floor(Math.random() * (finedMax - finedMin + 100) + finedMin * warnTotal * 15);
+                        
             // Give warn to Profile
+            target.money -= fined;
             target.warn++;
             target.save();
-
+            
+            // GIVE WARN ROLE
+            if (target.warn >= 2) {
+                user.roles.add(warn1Role)
+            } if (target.warn >= 4) {
+                user.roles.add(warn2Role)
+                user.roles.remove(warn1Role)
+            } if (target.warn >= 8 ) {
+                user.roles.add(warn3Role)
+                user.roles.remove(warn2Role)
+            };
+         
             // Sending DM to Target
             const modnickname = message.author.username
             const guildname = message.member.guild.name
@@ -88,6 +121,7 @@ module.exports = {
                 .setTitle(`Kamu mendapatkan Warning di server ${guildname}`)
                 .setDescription(`Tolong untuk mengikuti peraturan server yang berlaku agar terhindar dari kesalahan dan dapat menyebabkan kamu dikeluarkan dari server ${guildname}`)
                 .addField("Moderator", modnickname)
+                .addField("Denda", `Rp. ${fined}`)
                 .addField("Alasan", `\`\`\`${reason}\`\`\``)
                 .setColor("RED")
                 .setTimestamp()
@@ -97,6 +131,7 @@ module.exports = {
                 .setTitle(`New Warning!`)
                 .setColor(client.config.warning)
                 .addField("Target", user.user.username, true)
+                .addField("Denda", `Rp. ${fined}`)
                 .addField("Moderator", message.author.username, true)
                 .addField("Alasan", `\`\`\`${reason}\`\`\``)
                 .setTimestamp()
@@ -104,6 +139,7 @@ module.exports = {
 
             let report = new MessageEmbed()
                 .setDescription(`Warned ${user.user.username}#${user.user.tag} because ${reason}`)
+                .addField("Denda", `Rp. ${fined}`)
                 .setColor("RANDOM")
                 .setTimestamp()
             message.channel.send({ embeds: [report] }).then(msg => {
