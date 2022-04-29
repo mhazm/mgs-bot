@@ -517,10 +517,10 @@ module.exports = {
                         data.banner = attachmentUrl; data.save();
                         return message.channel.send({ embeds: [embed] });
                     } else 
-                    if (!m.content.startsWith('https://' || `http://`)) {
+                    if (!m.content.startsWith(`https://` || `http://`)) {
                         return message.reply('Tolong bro, masukin url! bukannya malah curhat..');
                     } else 
-                    if (m.content.startsWith('https://' || `http://`)) {
+                    if (m.content.startsWith(`https://` || `http://`)) {
                         let embed = new MessageEmbed()
                         .setDescription(`Berhasil setting icon baru`)
                         .setTimestamp(new Date())
@@ -581,10 +581,10 @@ module.exports = {
                         data.rankcard.background = attachmentUrl; data.save();
                         return message.channel.send({ embeds: [embed] });
                     } else 
-                    if (!m.content.startsWith('https://' || `http://`)) {
+                    if (!m.content.startsWith(`https://` || `http://`)) {
                         return message.reply('Tolong bro, masukin url! bukannya malah curhat..');
                     } else 
-                    if (m.content.startsWith('https://' || `http://`)) {
+                    if (m.content.startsWith(`https://` || `http://`)) {
                         let embed = new MessageEmbed()
                         .setDescription(`<a:verified:962503696288215051> Berhasil setting background rankcard baru`)
                         .setTimestamp(new Date())
