@@ -35,7 +35,7 @@ client.on('messageCreate', async (message) => {
             }
             User.create({
                 account,
-                guildID: member.guild.id,
+                guildID: message.guild.id,
                 userID: message.author.id,
             });
         }
@@ -67,9 +67,13 @@ client.on('messageCreate', async (message) => {
                 }
 
                 // Saving
-                user.money += rand;
-                user.xp += randexp;
-
+                try {
+                    user.money += rand;
+                    user.xp += randexp;
+                } catch (error) {
+                    console.log(error)
+                }
+                
                 let e = new MessageEmbed()
                     .setColor("99d42c")
                     .setTitle("<:update:836111138576007228>︱Balance Update")

@@ -18,7 +18,7 @@ client.on('messageCreate', async (message) => {
 
         if (!user) {
             const account = {
-                username: author.username,
+                username: message.author.username,
                 userId: message.author.id,
             }
             User.create({
