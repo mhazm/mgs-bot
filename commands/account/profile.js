@@ -43,8 +43,6 @@ module.exports = {
     const exp = process.env.UPXP;
     exprequired = Math.round(level * exp);
 
-    const lastMessage = moment.tz(user.lastmessage, "Asia/Jakarta").format('dddd, Do MMMM YYYY | HH:mm zz')
-
     const formatter = new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
@@ -114,7 +112,6 @@ module.exports = {
         .addField("📧 Messages", `${data.messages || 0}`, inline)
         .addField("👮 Warn", `${data.warn || 0}/${process.env.WARN}`, inline)
         .addField("💤 Mute", `${data.muted || 0}x`, inline)
-        .addField("📝 Last Messages", `${lastMessage || `Unknowed`}`)
         .setImage(`${data.banner}`)
     
       let page = 0;

@@ -28,10 +28,8 @@ client.on('messageCreate', async (message) => {
             })
             return
         }
-        const now = new Date()
 
         user.messages++;
-        user.lastmessage = now;
         user.save();
 
     } catch (err) {
