@@ -18,10 +18,17 @@ module.exports = {
     run: async (client, interaction, args) => {
         let now = new Date();
         let lebaran = moment.tz('2022-05-02 09:00', 'Asia/Jakarta');
+        let lewatLebaran = moment.tz('2022-05-03 00:01', 'Asia/Jakarta');
 
         if (now < lebaran) {
             return interaction.followUp({
                 content: `Saat ini kamu belum bisa ambil THR\nKamu dapat ambil pada ${lebaran.format('dddd, Do MMMM YYYY - HH:mm zz')}`
+            })
+        };
+
+        if (now > lewatLebaran) {
+            return interaction.followUp({
+                content: `Yah kamu udah kelewatan gan! Udah gabisa claim lagi sekarang..\nClaim udah ditutup pada ${lewatLebaran.format('dddd, Do MMMM YYYY - HH:mm zz')}`
             })
         };
 
