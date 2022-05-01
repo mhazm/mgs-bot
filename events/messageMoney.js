@@ -73,16 +73,7 @@ client.on('messageCreate', async (message) => {
                 } catch (error) {
                     console.log(error)
                 }
-                
-                let e = new MessageEmbed()
-                    .setColor("99d42c")
-                    .setTitle("<:update:836111138576007228>︱Balance Update")
-                    .setDescription(
-                        `User: **${member.username}**\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\`\nChat on <#${message.channel.id}>`
-                    )
-                    .setTimestamp();
-                moneylog.send({ embeds: [e] });
-
+                                
                 const level = user.level;
                 const exp = process.env.UPXP;
                 const exprequired = Math.round(level * exp);
@@ -99,7 +90,16 @@ client.on('messageCreate', async (message) => {
                     user.xp -= exprequired;
                     user.level += 1;
                 }
-                user.save();
+                await user.save()
+
+                let e = new MessageEmbed()
+                    .setColor("99d42c")
+                    .setTitle("<:update:836111138576007228>︱Balance Update")
+                    .setDescription(
+                        `User: **${member.username}**\nReceived:  \`Rp.${rand}\`\nGet EXP: \`${randexp}\`\nChat on <#${message.channel.id}>`
+                    )
+                    .setTimestamp();
+                moneylog.send({ embeds: [e] });
             }
         }
     } catch (err) {

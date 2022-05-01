@@ -22,15 +22,15 @@ client.on('messageCreate', async (message) => {
 
     // Role Warn
     const warn1Role = message.guild.roles.cache.get(guild.role.warn1);
-    if (!warn1Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+    if (!warn1Role) return message.reply(`Warn role tidak tersedia!`).then(msg => {
         setTimeout(() => msg.delete(), 3000)
     });
     const warn2Role = message.guild.roles.cache.get(guild.role.warn2);
-    if (!warn2Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+    if (!warn2Role) return message.reply(`Warn role tidak tersedia!`).then(msg => {
         setTimeout(() => msg.delete(), 3000)
     });
     const warn3Role = message.guild.roles.cache.get(guild.role.warn3);
-    if (!warn3Role) return message.reply(`Muted role tidak tersedia!`).then(msg => {
+    if (!warn3Role) return message.reply(`Warn role tidak tersedia!`).then(msg => {
         setTimeout(() => msg.delete(), 3000)
     });
 

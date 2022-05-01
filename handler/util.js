@@ -1,4 +1,6 @@
-const discord = require('discord.js');
+const moment = require('moment-timezone');
+moment.locale('id');
+const Guild = require('../models/Guild');
 
 class Util {
     constructor() {
@@ -88,6 +90,23 @@ class Util {
           }
           return `${seconds} detik`;
         };
+
+        this.currency = function currency(x) {
+          let formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+          });
+
+          return formatter.format(x);
+        }
+
+        this.formatday = function formatday(x) {
+          return moment.tz(x, "Asia/Jakarta").format('dddd, Do MMMM YYYY - HH:mm zz');
+        }
+
+        this.randomAngka = function randomAngka(min, max) {
+          return Math.floor(Math.random() * (max - min) + min)
+        }
 
         this.durasi = function durasi(ms) {
 
