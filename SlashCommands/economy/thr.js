@@ -1,6 +1,7 @@
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const User = require('../../models/User')
 const db = require('../../models/Thr');
+const Guild = require('../../models/Guild');
 const moment = require('moment-timezone');
 moment.locale('id');
 
@@ -32,15 +33,26 @@ module.exports = {
         if (!userData) return;
         if (interaction.user.bot) return;
 
+        let guild = await Guild.findOne({
+            guildID: interaction.guild.id,
+        });
+
+        if (!guild) return;
+        let budget = guild.eventbudget;
+        let formatBudget = client.util.currency(budget);
+
         const totalMessage = userData.message;
         if (totalMessage <= 200) {
             return interaction.followUp({ content: `Jumlah message kamu kurang ah buat dikasih THR!\nKamu harus punya 200 message untuk claim.Sekarang kamu cuma punya ${totalMessage} message.`})
         };
 
-        
         let formatDay = client.util.formatday(now);
 
         let randomMoney = client.util.randomAngka(6500, 10000);
+
+        if (budget < randomMoney) {
+            return interaction.followUp({ content: `Yah saldo adminnya abis men! Sisa saldonya tinggal ${formatBudget}`})
+        };
 
         db.findOne({ guildID: interaction.guild.id, userID: interaction.user.id}, async(err, data) => {
             if(err) throw err;

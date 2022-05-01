@@ -87,6 +87,10 @@ const schema = mongoose.Schema({
         type: Number,
         default: '1'
     },
+    eventbudget: {
+        type: Number,
+        default: '0'
+    },
     role: {
         adminRole: {
             type: String,

@@ -1,6 +1,7 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const User = require('../../models/User')
+const User = require('../../models/User');
 const db = require('../../models/Thr');
+const Guild = require('../../models/Guild');
 const moment = require('moment-timezone');
 moment.locale('id');
 
@@ -29,14 +30,26 @@ module.exports = {
         if (!userData) return;
         if (message.author.bot) return;
 
+        let guild = await Guild.findOne({
+            guildID: message.guild.id,
+        });
+
+        if (!guild) return;
+        let budget = guild.eventbudget;
+
         const totalMessage = userData.message;
         if (totalMessage <= 200) {
             return message.reply({ content: `Jumlah message kamu kurang ah buat dikasih THR!\nKamu harus punya 200 message untuk claim.Sekarang kamu cuma punya ${totalMessage} message.`})
         };
         
         let formatDay = client.util.formatday(now);
+        let formatBudget = client.util.currency(budget);
 
         let randomMoney = client.util.randomAngka(6500, 10000);
+
+        if (budget < randomMoney) {
+            return message.reply({ content: `Yah saldo adminnya abis men! Sisa saldonya tinggal ${formatBudget}`})
+        };
 
         db.findOne({ guildID: message.guild.id, userID: message.author.id}, async(err, data) => {
             if(err) throw err;

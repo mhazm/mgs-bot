@@ -1,7 +1,7 @@
 const client = require("../index");
 const activities = [ 
 	{ type: 'PLAYING', name: `on version ${client.version}` },
-    { type: 'WATCHING', name: `IndCbL Searching Cosplayers` }
+    { type: 'WATCHING', name: `Taqabbalallahu minna waminkum ja'alanallahu minal aidin wal faizin. Selamat menikmati hari kemenangan!` }
 ];
 
 client.on('ready', () => {
