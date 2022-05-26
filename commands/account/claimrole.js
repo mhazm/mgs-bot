@@ -32,6 +32,9 @@ module.exports = {
 
             const author = message.guild.members.cache.get(message.author.id);
             const rolevip = message.guild.roles.cache.find(r => r.id === guildData.role.typingRole);
+            if (!rolevip) return message.reply(`Role TypingLord ngga ada di database!`).then(msg => {
+                setTimeout(() => msg.delete(), 3000)
+            });
 
             const roleUpPosition = message.guild.roles.cache.find(r => r.id === guildData.role.upCrRole);
             if (!roleUpPosition) {
@@ -88,7 +91,7 @@ module.exports = {
                         .setTitle(`<a:verified:962503696288215051> Claimed Custom Role`)
                         .setColor('RANDOM')
                         .addField(`Nama Role`, role.name)
-                        .addField(`Created Date`, moment.tz(new Date(), 'Asia/Jakarta').format('LLLL'))
+                        .addField(`Created Date`, client.util.formatday(new Date()))
                         .setThumbnail(author.displayAvatarURL({ dynamic: true }))
                         .setTimestamp()
                         message.channel.send({ embeds: [embedNotif] });
@@ -97,7 +100,7 @@ module.exports = {
                         .setTitle(`<a:verified:962503696288215051> ${message.author.username} Claim Custom Role`)
                         .setColor(client.config.berhasil)
                         .addField(`Nama Role`, role.name)
-                        .addField(`Created Date`, moment.tz(new Date(), 'Asia/Jakarta').format('LLLL'))
+                        .addField(`Created Date`, client.util.formatday(new Date()))
                         .setThumbnail(author.displayAvatarURL({ dynamic: true }))
                         .setTimestamp()
                         modlog.send({ embeds: [embedMod] });
@@ -109,7 +112,7 @@ module.exports = {
                 let embedA = new MessageEmbed()
                     .setColor(client.config.gagal)
                     .setDescription(`<a:RIP:819857554955829248> Kamu telah melakukan claim custom role dengan nama ***${getRoleCache.name}***`)
-                    .addField(`Aktif Sejak`, moment.tz(customDB.createDate, "Asia/Jakarta").format("LLLL"))
+                    .addField(`Aktif Sejak`, client.util.formatday(customDB.createdDate))
                 message.channel.send({ embeds: [embedA] });
             }
         } catch(error) {
