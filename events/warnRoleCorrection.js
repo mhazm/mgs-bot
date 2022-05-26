@@ -25,17 +25,11 @@ client.on('messageCreate', async (message) => {
 
     // Role Warn
     const warn1Role = message.guild.roles.cache.get(guild.role.warn1);
-    if (!warn1Role) return message.reply(`Warn role tidak tersedia!`).then(msg => {
-        setTimeout(() => msg.delete(), 3000)
-    });
+    if (!warn1Role) return;
     const warn2Role = message.guild.roles.cache.get(guild.role.warn2);
-    if (!warn2Role) return message.reply(`Warn role tidak tersedia!`).then(msg => {
-        setTimeout(() => msg.delete(), 3000)
-    });
+    if (!warn2Role) return;
     const warn3Role = message.guild.roles.cache.get(guild.role.warn3);
-    if (!warn3Role) return message.reply(`Warn role tidak tersedia!`).then(msg => {
-        setTimeout(() => msg.delete(), 3000)
-    });
+    if (!warn3Role) return;
 
     if (user.warn >= 2 && user.warn <= 3) {
         if (!target.roles.cache.get(warn1Role)) {
