@@ -51,7 +51,7 @@ module.exports = {
                     let help = new MessageEmbed()
                     .setColor(myRole.color)
                     .setDescription(`
-                    Kamu dapat menggunakan command ini dengan contoh seperti ini : ${guild.prefix}mr typing <args> dan nanti tinggal jawab saja pertanyaan dari dapin.\n
+                    Kamu dapat menggunakan command ini dengan contoh seperti ini : ${guild.prefix}er typing <args> dan nanti tinggal jawab saja pertanyaan dari dapin.\n
                     Pilihan argumen yang tersedia adalah :
                     <a:kanan:819853363179945994> **List Setting**
                     • nama
@@ -238,7 +238,7 @@ module.exports = {
                     let help = new MessageEmbed()
                     .setColor(myRole.color)
                     .setDescription(`
-                    Kamu dapat menggunakan command ini dengan contoh seperti ini : ${guild.prefix}mr vip <args> dan nanti tinggal jawab saja pertanyaan dari dapin.\n
+                    Kamu dapat menggunakan command ini dengan contoh seperti ini : ${guild.prefix}er vip <args> dan nanti tinggal jawab saja pertanyaan dari dapin.\n
                     Pilihan argumen yang tersedia adalah :
                     <a:kanan:819853363179945994> **List Setting**
                     • nama
