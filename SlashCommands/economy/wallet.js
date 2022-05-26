@@ -42,7 +42,7 @@ module.exports = {
 
         const member = interaction.guild.members.cache.get(user.id);
         const joinDate = moment.utc(member.joinedAt).format("MM/YY");
-        const userTag = interaction.user.tag;
+        const userTag = user.tag;
 
         const canvas = Canvas.createCanvas(600, 350);
         const ctx = canvas.getContext('2d');
