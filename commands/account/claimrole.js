@@ -31,7 +31,7 @@ module.exports = {
             }
 
             const author = message.guild.members.cache.get(message.author.id);
-            const rolevip = message.guild.roles.cache.find(r => r.id === guildData.role.vipRole);
+            const rolevip = message.guild.roles.cache.find(r => r.id === guildData.role.typingRole);
 
             const roleUpPosition = message.guild.roles.cache.find(r => r.id === guildData.role.upCrRole);
             if (!roleUpPosition) {
@@ -69,7 +69,7 @@ module.exports = {
                     message.guild.roles.create({
                         name: rolename,
                         color: 'BLUE',
-                        reason: 'Custom role [VIP]',
+                        reason: 'Custom role [Typing Lord]',
                     })
                     .then(role => {
                         const roleCreated = message.guild.roles.cache.get(role.id);
