@@ -44,6 +44,9 @@ client.on('messageCreate', async (message) => {
             guildID: message.guild.id,
         })
 
+        const vipRole = message.guild.roles.cache.find(r => r.id === guild.role.vipRole);
+        const author = message.guild.members.cache.get(member.id);
+
         if (message.channel.parentId === guild.channel.chatmoney) {
             if (!cooldown.has(member.id)) {
                 addToCooldown(member.id);
@@ -60,6 +63,10 @@ client.on('messageCreate', async (message) => {
                 // DUIT + EXP
                 let randexp = Math.floor(Math.random() * (expmax - expmin) + expmin);
                 let rand = Math.floor(Math.random() * (moneymax - moneymin) + moneymin - userWarn);
+
+                if (author.roles.cache.has(vipRole.id)) {
+                    randexp *= 2;
+                }
 
                 if (guild.active.holiday === true) {
                     randexp *= 2;
