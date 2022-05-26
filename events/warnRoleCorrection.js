@@ -5,7 +5,10 @@ const { e } = require('mathjs')
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
+    if (!message.guild) return;
+
     const target = message.guild.members.cache.get(message.author.id)
+    if (!target) return;
 
     let user = await User.findOne({
         guildID: message.guild.id,
