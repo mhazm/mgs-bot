@@ -1,5 +1,5 @@
 const client = require('../index')
-const CustomRole = require('../models/CustomRole.js');
+const CustomRole = require('../models/VIPRole.js');
 const moment = require('moment-timezone');
 const { MessageEmbed } = require('discord.js');
 const Guild = require('../models/Guild');
@@ -24,8 +24,8 @@ client.on('guildMemberUpdate', async (member) => {
             return console.log(`[Error Found!] Role not exist again! return Deleted Data`);
         } 
 
-    const vip = member.guild.roles.cache.get(guildData.role.typingRole);
-        if (!vip) return console.log(`[Error Found] TypingLord Role not exist!`);
+    const vip = member.guild.roles.cache.get(guildData.role.vipRole);
+        if (!vip) return console.log(`[Error Found] VIP Role not exist!`);
 
     const target = member.guild.members.cache.get(data.userID);
         if (!target) {

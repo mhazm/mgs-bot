@@ -1,4 +1,5 @@
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const Guild = require('../../models/Guild.js');
 
 module.exports = {
     name: "anon",
@@ -12,9 +13,8 @@ module.exports = {
      */
     run: async (client, interaction, args) => {
         try {
-            interaction.followUp({ 
+            await interaction.followUp({ 
                 content: `Silahkan check dm kamu untuk melanjutkan!`, 
-                ephemeral: true
             });
             
             let data = await Guild.findOne({
@@ -27,9 +27,11 @@ module.exports = {
 
             const appChannel = client.channels.cache.get(data.channel.story)
 
-            const filter = (m) => m.author.id === interaction.author.id
+            const filter = (m) => m.author.id === interaction.user.id;
 
-            const appStart = await interaction.author.send(
+            const user = client.users.cache.get(interaction.member.user.id)
+
+            const appStart = await user.send(
                 questions[collectCounter++]
             )
             const channel = appStart.channel
