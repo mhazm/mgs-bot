@@ -1,10 +1,10 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const RoleCustom = require('../../models/CustomRole.js');
+const VIPRole = require('../../models/VIPRole.js');
 const Guild = require('../../models/Guild.js');
 const moment = require('moment-timezone');
 
 module.exports = {
-    name: 'claimrole',
+    name: 'vipclaim',
     description: 'Claim custom role',
     usage: '<nama role>',
     /** 
@@ -31,8 +31,8 @@ module.exports = {
             }
 
             const author = message.guild.members.cache.get(message.author.id);
-            const rolevip = message.guild.roles.cache.find(r => r.id === guildData.role.typingRole);
-            if (!rolevip) return message.reply(`Role TypingLord ngga ada di database!`).then(msg => {
+            const rolevip = message.guild.roles.cache.find(r => r.id === guildData.role.vipRole);
+            if (!rolevip) return message.reply(`Role VIP ngga ada di database!`).then(msg => {
                 setTimeout(() => msg.delete(), 3000)
             });
 
@@ -61,7 +61,7 @@ module.exports = {
                       });
             }
 
-            const customDB = await RoleCustom.findOne({
+            const customDB = await VIPRole.findOne({
                 userID: message.author.id,
                 guildID: message.guild.id,
             });
@@ -72,7 +72,7 @@ module.exports = {
                     message.guild.roles.create({
                         name: rolename,
                         color: 'BLUE',
-                        reason: 'Custom role [Typing Lord]',
+                        reason: 'Custom role [VIP Member]',
                     })
                     .then(role => {
                         const roleCreated = message.guild.roles.cache.get(role.id);
@@ -80,7 +80,7 @@ module.exports = {
                         author.roles.add(role.id);
 
                         //Saving data to DB
-                        RoleCustom.create({
+                        VIPRole.create({
                             userID: message.author.id,
                             guildID: message.guild.id,
                             roleID: role.id,
@@ -88,7 +88,7 @@ module.exports = {
                         })
 
                         let embedNotif = new MessageEmbed()
-                        .setTitle(`<a:verified:962503696288215051> Claimed Custom Role`)
+                        .setTitle(`<a:verified:962503696288215051> Claimed VIP Custom Role`)
                         .setColor('RANDOM')
                         .addField(`Nama Role`, role.name)
                         .addField(`Created Date`, client.util.formatday(new Date()))
@@ -111,7 +111,7 @@ module.exports = {
                 const getRoleCache = message.guild.roles.cache.get(customDB.roleID);
                 let embedA = new MessageEmbed()
                     .setColor(client.config.gagal)
-                    .setDescription(`<a:RIP:819857554955829248> Kamu telah melakukan claim custom role dengan nama ***${getRoleCache.name}***`)
+                    .setDescription(`<a:RIP:819857554955829248> Kamu telah melakukan claim VIP custom role dengan nama ***${getRoleCache.name}***`)
                     .addField(`Aktif Sejak`, client.util.formatday(customDB.createdDate))
                 message.channel.send({ embeds: [embedA] });
             }

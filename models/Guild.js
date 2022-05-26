@@ -116,6 +116,10 @@ const schema = mongoose.Schema({
             type: String,
             default: ''
         },
+        typingRole: {
+            type: String,
+            default: ''
+        },
         warn1: {
             type: String,
             default: ''

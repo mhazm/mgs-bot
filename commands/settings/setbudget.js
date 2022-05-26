@@ -21,7 +21,7 @@ module.exports = {
 
             if (!guild) return;
 
-            const budget = args[1];
+            const budget = parseInt(args[1]);
             if (isNaN(budget)) {
                 return message.reply('Kamu harus memasukan digit angka!');
             }
@@ -31,7 +31,7 @@ module.exports = {
 
             const modlog = client.channels.cache.get(guild.channel.modlog)
 
-            if (args[0].toLowerCase() === 'add' || 'tambah') {
+            if (args[0].toLowerCase() === 'add') {
                 let notif = new MessageEmbed()
                     .setColor("GREEN")
                     .setDescription(`Budget server telah ditambahkan Rp.${budget}\nSaat ini budget payout sebesar Rp.${guild.budget}`)
@@ -102,6 +102,19 @@ module.exports = {
                 guild.eventbudget -= budget;
                 guild.save();
                 message.channel.send(`Budget telah berhasil dikurangkan senilai Rp.${budget}`).then(msg => {
+                    setTimeout(() => msg.delete(), 3000)
+                });
+            } else if (args[0].toLowerCase() === 'event-reset') {
+                let notif = new MessageEmbed()
+                    .setColor("GREEN")
+                    .setDescription(`Budget server telah direset\nReset by ${message.author.username}`)
+                    .setTimestamp()
+                    .setFooter({text: `Request by ${message.author.username}`, iconURL: message.author.displayAvatarURL({ dynamic: true })})
+                modlog.send({ embeds: [notif] });
+
+                guild.eventbudget = 0;
+                guild.save();
+                message.channel.send(`Budget event telah direset menjadi 0.`).then(msg => {
                     setTimeout(() => msg.delete(), 3000)
                 });
             }
