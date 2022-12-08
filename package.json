@@ -33,6 +33,6 @@
         "nekos.life": "^2.0.9",
         "node-gyp": "^9.0.0",
         "nodemon": "^2.0.16",
-        "quick.db": "^7.1.3"
+        "quick.db": "^9.0.7"
     }
 }
